@@ -11,17 +11,16 @@
 ![Astro](https://img.shields.io/badge/Astro-7.2.0-orange)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-blue)
 >
-> [![Stars](https://img.shields.io/github/stars/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/stargazers)
-[![Forks](https://img.shields.io/github/forks/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/network/members)
-[![Issues](https://img.shields.io/github/issues/CuteLeaf/Firefly)](https://github.com/CuteLeaf/Firefly/issues)
+> [![Stars](https://img.shields.io/github/stars/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/stargazers)
+[![Forks](https://img.shields.io/github/forks/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/network/members)
+[![Issues](https://img.shields.io/github/issues/E-Mufeng/mufeng--Firefly)](https://github.com/E-Mufeng/mufeng--Firefly/issues)
 > 
 > [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
 >
 > **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
 > 
-> ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
-[![爱发电打赏](https://img.shields.io/badge/爱发电-打赏作者-ff69b4.svg)](https://ifdian.net/a/cuteleaf)
+> ![GitHub License](https://img.shields.io/github/license/E-Mufeng/mufeng--Firefly)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/E-Mufeng/mufeng--Firefly)
 
 </div>
 
@@ -31,9 +30,6 @@
 **[简体中文](README.md)** | **[繁體中文](docs/README.zh-TW.md)** | **[English](README.en.md)** | **[日本語](docs/README.ja.md)** 
 
 🚀 快速指南：
-[**🖥️在线预览**](https://firefly.cuteleaf.cn/) /
-[**📝使用文档**](https://docs-firefly.cuteleaf.cn/) /
-[**🍀我的博客**](https://blog.cuteleaf.cn) 
 
 ⚡ 静态站点生成: 基于 Astro 的超快加载速度和 SEO 优化
 
@@ -66,9 +62,8 @@
 >
 >Firefly 也保留了原版 fuwari 的布局，可根据自己的喜好在配置文件中自由切换。
 >
->**更多布局配置及演示请查看：[Firefly 布局系统详解](https://firefly.cuteleaf.cn/posts/guide/firefly-layout-system/)**
 >
->Firefly 支持 i18n 多语言 UI，但除了简体中文，其他语言均为 AI 翻译转换，如有错误，欢迎提交 [Pull Request](https://github.com/CuteLeaf/Firefly/pulls) 修正。
+>Firefly 支持 i18n 多语言 UI，但除了简体中文，其他语言均为 AI 翻译转换，如有错误，欢迎提交 [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls) 修正。
 
 ## ✨ 功能特性
 
@@ -90,7 +85,7 @@
 - [x] **壁纸模式切换** - 横幅壁纸、全屏壁纸、全屏透明壁纸、纯色背景
 - [x] **主题色自定义** - 360° 色相调节
 
-如果你有好用的功能和优化，请提交 [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)
+如果你有好用的功能和优化，请提交 [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls)
 
 ## 🚀 快速开始
 
@@ -103,11 +98,11 @@
 
 1. **克隆仓库：**
    ```bash
-   git clone https://github.com/Cuteleaf/Firefly.git
+   git clone https://github.com/E-Mufeng/mufeng--Firefly.git
    cd Firefly
    ```
    
-   **先 [Fork](https://github.com/CuteLeaf/Firefly/fork) 到自己仓库再克隆（推荐），记得先点 Star 再 Fork 哦！**
+   **先 [Fork](https://github.com/E-Mufeng/mufeng--Firefly/fork) 到自己仓库再克隆（推荐），记得先点 Star 再 Fork 哦！**
 
    ```bash
    git clone https://github.com/you-github-name/Firefly.git
@@ -145,12 +140,11 @@
 
    安装命令： `pnpm install`
 
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CuteLeaf/Firefly&project-name=Firefly&repository-name=Firefly)
-   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CuteLeaf/Firefly)
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/E-Mufeng/mufeng--Firefly&project-name=Firefly&repository-name=Firefly)
+   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/E-Mufeng/mufeng--Firefly)
 
 ## 📖 配置说明
 
-> 📚 **详细配置文档**: 查看 [Firefly 使用文档](https://docs-firefly.cuteleaf.cn/) 获取完整的配置指南
 
 ### 设置网站语言
 
@@ -237,15 +231,11 @@ location: China # 位置
 动态内容可以使用 Markdown 语法。
 ```
 
-也支持对接 [Memos](https://www.usememos.com/) 作为数据源，在 `src/config/dynamicConfig.ts` 中配置 `memos` 选项即可实时获取 Memos 动态，支持置顶同步和图片附件展示。详见[动态文档](https://docs-firefly.cuteleaf.cn/zh/guide/dynamic.html)。
 
 ## 🧩 Markdown 扩展语法
 
 除了 Astro 默认支持的 [GitHub Flavored Markdown](https://github.github.com/gfm/) 之外，还包含了一些额外的 Markdown 功能：
 
-- 提醒块（Admonitions） - 支持 GitHub, Obsidian, VitePress, Docusaurus 四种风格主题配置 ([预览和用法](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- GitHub 仓库卡片 ([预览和用法](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- 基于 Expressive Code 的增强代码块 ([预览](http://firefly.cuteleaf.cn/posts/code-examples/) / [文档](https://expressive-code.com/))
 
 ## 🧞 指令
 
@@ -296,16 +286,17 @@ location: China # 位置
 
 **版权声明：**
 - Copyright (c) 2024 [saicaca](https://github.com/saicaca) - [fuwari](https://github.com/saicaca/fuwari)
-- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/CuteLeaf/Firefly) 
+- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/E-Mufeng/mufeng--Firefly)
+- Modified by [E-Mufeng](https://github.com/E-Mufeng) <chenormonsters@gmail.com>
 
 根据 MIT 开源协议，你可以自由使用、修改、分发代码，但需保留上述版权声明。
 
 ## 🍀 贡献者
 
-感谢以下贡献者对本项目做出的贡献，如有问题或建议，请提交 [Issue](https://github.com/CuteLeaf/Firefly/issues) 或 [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)。
+感谢以下贡献者对本项目做出的贡献，如有问题或建议，请提交 [Issue](https://github.com/E-Mufeng/mufeng--Firefly/issues) 或 [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls)。
 
-><a href="https://github.com/CuteLeaf/Firefly/graphs/contributors">
->  <img src="https://contrib.rocks/image?repo=CuteLeaf/Firefly" />
+><a href="https://github.com/E-Mufeng/mufeng--Firefly/graphs/contributors">
+>  <img src="https://contrib.rocks/image?repo=E-Mufeng/mufeng--Firefly" />
 ></a>
 
 感谢以下贡献者对原项目 [fuwari](https://github.com/saicaca/fuwari) 做出的贡献，为本项目奠定了基础。
@@ -316,7 +307,7 @@ location: China # 位置
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=CuteLeaf/Firefly&type=Date)](https://star-history.com/#CuteLeaf/Firefly&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=E-Mufeng/mufeng--Firefly&type=Date)](https://star-history.com/#E-Mufeng/mufeng--Firefly&Date)
 
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

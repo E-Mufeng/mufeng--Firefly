@@ -11,17 +11,16 @@
 ![Astro](https://img.shields.io/badge/Astro-7.2.0-orange)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-blue)
 >
-> [![Stars](https://img.shields.io/github/stars/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/stargazers)
-[![Forks](https://img.shields.io/github/forks/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/network/members)
-[![Issues](https://img.shields.io/github/issues/CuteLeaf/Firefly)](https://github.com/CuteLeaf/Firefly/issues)
+> [![Stars](https://img.shields.io/github/stars/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/stargazers)
+[![Forks](https://img.shields.io/github/forks/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/network/members)
+[![Issues](https://img.shields.io/github/issues/E-Mufeng/mufeng--Firefly)](https://github.com/E-Mufeng/mufeng--Firefly/issues)
 > 
 > [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
 >
 > **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
 > 
-> ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
-[![Afdian Sponsor](https://img.shields.io/badge/Afdian-Sponsor%20Author-ff69b4.svg)](https://ifdian.net/a/cuteleaf)
+> ![GitHub License](https://img.shields.io/github/license/E-Mufeng/mufeng--Firefly)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/E-Mufeng/mufeng--Firefly)
 </div>
 
 
@@ -30,9 +29,6 @@
 **[简体中文](README.md)** | **[繁體中文](docs/README.zh-TW.md)** | **[English](README.en.md)** | **[日本語](docs/README.ja.md)**
 
 🚀 Quick Guide:
-[**🖥️Live Demo**](https://firefly.cuteleaf.cn/) /
-[**📝Documentation**](https://docs-firefly.cuteleaf.cn/) /
-[**🍀My Blog**](https://blog.cuteleaf.cn)
 
 ⚡ Static Site Generation: Ultra-fast loading speed and SEO optimization based on Astro
 
@@ -65,9 +61,8 @@
 >
 >Firefly also preserves the original fuwari layout, which can be freely switched in the configuration file according to your preferences.
 >
->**For more layout configurations and demos, please see: [Firefly Layout System Details](https://firefly.cuteleaf.cn/posts/guide/firefly-layout-system/)**
 >
->Firefly supports i18n multilingual UI, but except for Simplified Chinese, other languages are AI-translated. If you find any errors, feel free to submit a [Pull Request](https://github.com/CuteLeaf/Firefly/pulls) to help improve them.
+>Firefly supports i18n multilingual UI, but except for Simplified Chinese, other languages are AI-translated. If you find any errors, feel free to submit a [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls) to help improve them.
 
 ## ✨ Features
 
@@ -90,7 +85,7 @@
 - [x] **Theme Color Customization** - 360° hue adjustment
 
 
-If you have useful features and optimizations, please submit a [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)
+If you have useful features and optimizations, please submit a [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls)
 
 ## 🚀 Quick Start
 
@@ -103,11 +98,11 @@ If you have useful features and optimizations, please submit a [Pull Request](ht
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Cuteleaf/Firefly.git
+   git clone https://github.com/E-Mufeng/mufeng--Firefly.git
    cd Firefly
    ```
    
-   **First [Fork](https://github.com/CuteLeaf/Firefly/fork) to your own repository then clone (recommended). Don't forget to Star before Fork!**
+   **First [Fork](https://github.com/E-Mufeng/mufeng--Firefly/fork) to your own repository then clone (recommended). Don't forget to Star before Fork!**
 
    ```bash
    git clone https://github.com/you-github-name/Firefly.git
@@ -145,12 +140,11 @@ If you have useful features and optimizations, please submit a [Pull Request](ht
 
    Install Command: `pnpm install`
 
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CuteLeaf/Firefly&project-name=Firefly&repository-name=Firefly)
-   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CuteLeaf/Firefly)
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/E-Mufeng/mufeng--Firefly&project-name=Firefly&repository-name=Firefly)
+   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/E-Mufeng/mufeng--Firefly)
 
 ## 📖 Configuration
 
-> 📚 **Detailed Configuration Documentation**: Check [Firefly Documentation](https://docs-firefly.cuteleaf.cn/) for complete configuration guide
 
 ### Setting Website Language
 
@@ -238,15 +232,11 @@ location: China # Location
 Moment content supports Markdown.
 ```
 
-Also supports [Memos](https://www.usememos.com/) as a data source. Configure the `memos` option in `src/config/dynamicConfig.ts` to fetch Memos moments in real-time, with pinned sync and image attachment support. See [Moments documentation](https://docs-firefly.cuteleaf.cn/en/guide/dynamic.html).
 
 ## 📖 Markdown Extensions
 
 In addition to the default [GitHub Flavored Markdown](https://github.github.com/gfm/) support in Astro, there are some additional Markdown features:
 
-- Admonitions - Supports configuration for GitHub, Obsidian, VitePress, and Docusaurus themes ([Preview and Usage](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- GitHub Repository Cards ([Preview and Usage](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- Enhanced Code Blocks based on Expressive Code ([Preview](http://firefly.cuteleaf.cn/posts/code-examples/) / [Documentation](https://expressive-code.com/))
 
 ## 🧞 Commands
 
@@ -297,16 +287,17 @@ Originally forked from [saicaca/fuwari](https://github.com/saicaca/fuwari). Than
 
 **Copyright Notice:**
 - Copyright (c) 2024 [saicaca](https://github.com/saicaca) - [fuwari](https://github.com/saicaca/fuwari)
-- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/CuteLeaf/Firefly)
+- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/E-Mufeng/mufeng--Firefly)
+- Modified by [E-Mufeng](https://github.com/E-Mufeng) <chenormonsters@gmail.com>
 
 Under the MIT license, you are free to use, modify, and distribute the code, but you must retain the above copyright notice.
 
 ## 🍀 Contributors
 
-Thanks to the following contributors for their contributions to this project. If you have any questions or suggestions, please submit an [Issue](https://github.com/CuteLeaf/Firefly/issues) or [Pull Request](https://github.com/CuteLeaf/Firefly/pulls).
+Thanks to the following contributors for their contributions to this project. If you have any questions or suggestions, please submit an [Issue](https://github.com/E-Mufeng/mufeng--Firefly/issues) or [Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls).
 
-><a href="https://github.com/CuteLeaf/Firefly/graphs/contributors">
->  <img src="https://contrib.rocks/image?repo=CuteLeaf/Firefly" />
+><a href="https://github.com/E-Mufeng/mufeng--Firefly/graphs/contributors">
+>  <img src="https://contrib.rocks/image?repo=E-Mufeng/mufeng--Firefly" />
 ></a>
 
 Thanks to the following contributors for their contributions to the original project [fuwari](https://github.com/saicaca/fuwari), which laid the foundation for this project.
@@ -317,7 +308,7 @@ Thanks to the following contributors for their contributions to the original pro
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=CuteLeaf/Firefly&type=Date)](https://star-history.com/#CuteLeaf/Firefly&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=E-Mufeng/mufeng--Firefly&type=Date)](https://star-history.com/#E-Mufeng/mufeng--Firefly&Date)
 
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

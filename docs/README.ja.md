@@ -11,17 +11,16 @@
 ![Astro](https://img.shields.io/badge/Astro-7.2.0-orange)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-blue)
 >
-> [![Stars](https://img.shields.io/github/stars/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/stargazers)
-[![Forks](https://img.shields.io/github/forks/CuteLeaf/Firefly?style=social)](https://github.com/CuteLeaf/Firefly/network/members)
-[![Issues](https://img.shields.io/github/issues/CuteLeaf/Firefly)](https://github.com/CuteLeaf/Firefly/issues)
+> [![Stars](https://img.shields.io/github/stars/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/stargazers)
+[![Forks](https://img.shields.io/github/forks/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/network/members)
+[![Issues](https://img.shields.io/github/issues/E-Mufeng/mufeng--Firefly)](https://github.com/E-Mufeng/mufeng--Firefly/issues)
 > 
 > [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
 >
 > **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
 > 
-> ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
-[![Afdian Sponsor](https://img.shields.io/badge/Afdian-作者を支援-ff69b4.svg)](https://ifdian.net/a/cuteleaf)
+> ![GitHub License](https://img.shields.io/github/license/E-Mufeng/mufeng--Firefly)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/E-Mufeng/mufeng--Firefly)
 
 </div>
 
@@ -31,9 +30,6 @@
 **[简体中文](../README.md)** | **[繁體中文](README.zh-TW.md)** | **[English](../README.en.md)** | **[日本語](README.ja.md)**
 
 🚀 クイックガイド：
-[**🖥️ライブデモ**](https://firefly.cuteleaf.cn/) /
-[**📝ドキュメント**](https://docs-firefly.cuteleaf.cn/) /
-[**🍀私のブログ**](https://blog.cuteleaf.cn)
 
 ⚡ 静的サイト生成：Astro ベースの超高速読み込み速度と SEO 最適化
 
@@ -66,9 +62,8 @@
 >
 >Firefly はオリジナルの fuwari レイアウトも保持しており、設定ファイルで好みに応じて自由に切り替えられます。
 >
->**レイアウト設定とデモの詳細については、[Firefly レイアウトシステム詳解](https://firefly.cuteleaf.cn/posts/guide/firefly-layout-system/)をご覧ください**
 >
->Firefly は i18n の多言語 UI をサポートしていますが、簡体字中国語以外の言語は AI 翻訳です。誤りがある場合は、[Pull Request](https://github.com/CuteLeaf/Firefly/pulls) の提出を歓迎します。
+>Firefly は i18n の多言語 UI をサポートしていますが、簡体字中国語以外の言語は AI 翻訳です。誤りがある場合は、[Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls) の提出を歓迎します。
 
 ## ✨ 機能
 
@@ -91,7 +86,7 @@
 - [x] **テーマカラーのカスタマイズ** - 360° 色相調整
 
 
-便利な機能や最適化があれば、[Pull Request](https://github.com/CuteLeaf/Firefly/pulls)を提出してください
+便利な機能や最適化があれば、[Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls)を提出してください
 
 ## 🚀 クイックスタート
 
@@ -104,11 +99,11 @@
 
 1. **リポジトリのクローン：**
    ```bash
-   git clone https://github.com/Cuteleaf/Firefly.git
+   git clone https://github.com/E-Mufeng/mufeng--Firefly.git
    cd Firefly
    ```
    
-   **まず自分のリポジトリに[Fork](https://github.com/CuteLeaf/Firefly/fork)してからクローン（推奨）。クローンする前に Star をクリックするのを忘れずに！**
+   **まず自分のリポジトリに[Fork](https://github.com/E-Mufeng/mufeng--Firefly/fork)してからクローン（推奨）。クローンする前に Star をクリックするのを忘れずに！**
 
    ```bash
    git clone https://github.com/you-github-name/Firefly.git
@@ -146,12 +141,11 @@
 
    インストールコマンド： `pnpm install`
 
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CuteLeaf/Firefly&project-name=Firefly&repository-name=Firefly)
-   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CuteLeaf/Firefly)
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/E-Mufeng/mufeng--Firefly&project-name=Firefly&repository-name=Firefly)
+   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/E-Mufeng/mufeng--Firefly)
 
 ## 📖 設定説明
 
-> 📚 **詳細な設定ドキュメント**：[Fireflyドキュメント](https://docs-firefly.cuteleaf.cn/)で完全な設定ガイドを確認してください
 
 ### ウェブサイトの言語設定
 
@@ -238,15 +232,11 @@ location: China # 場所
 本文では Markdown を使用できます。
 ```
 
-[Memos](https://www.usememos.com/) をデータソースとして接続することもできます。`src/config/dynamicConfig.ts` の `memos` オプションを設定すると、ピン留めの同期や画像添付ファイルの表示に対応したリアルタイムデータ取得が可能です。詳細は[モーメントドキュメント](https://docs-firefly.cuteleaf.cn/en/guide/dynamic.html)をご参照ください。
 
 ## 🧩 Markdown拡張
 
 Astro がデフォルトで対応している[GitHub Flavored Markdown](https://github.github.com/gfm/)に加えて、いくつかの追加の Markdown 機能があります：
 
-- Admonitions（予告ブロック） - GitHub、Obsidian、VitePress、Docusaurus の4つのテーマ設定をサポート ([プレビューと使用方法](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- GitHub リポジトリカード ([プレビューと使用方法](https://firefly.cuteleaf.cn/posts/markdown-extended/))
-- Expressive Code ベースの強化コードブロック ([プレビュー](http://firefly.cuteleaf.cn/posts/code-examples/) / [ドキュメント](https://expressive-code.com/))
 
 ## 🧞 コマンド
 
@@ -297,16 +287,17 @@ Astro がデフォルトで対応している[GitHub Flavored Markdown](https://
 
 **著作権表示：**
 - Copyright (c) 2024 [saicaca](https://github.com/saicaca) - [fuwari](https://github.com/saicaca/fuwari)
-- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/CuteLeaf/Firefly)
+- Copyright (c) 2025 [CuteLeaf](https://github.com/CuteLeaf) - [Firefly](https://github.com/E-Mufeng/mufeng--Firefly)
+- Modified by [E-Mufeng](https://github.com/E-Mufeng) <chenormonsters@gmail.com>
 
 MIT ライセンスに基づき、コードの自由な使用、変更、配布が許可されていますが、上記の著作権表示を保持する必要があります。
 
 ## 🍀 貢献者
 
-このプロジェクトに貢献してくれた以下の貢献者に感謝します。質問や提案がある場合は、[Issue](https://github.com/CuteLeaf/Firefly/issues)または[Pull Request](https://github.com/CuteLeaf/Firefly/pulls)を提出してください。
+このプロジェクトに貢献してくれた以下の貢献者に感謝します。質問や提案がある場合は、[Issue](https://github.com/E-Mufeng/mufeng--Firefly/issues)または[Pull Request](https://github.com/E-Mufeng/mufeng--Firefly/pulls)を提出してください。
 
-><a href="https://github.com/CuteLeaf/Firefly/graphs/contributors">
->  <img src="https://contrib.rocks/image?repo=CuteLeaf/Firefly" />
+><a href="https://github.com/E-Mufeng/mufeng--Firefly/graphs/contributors">
+>  <img src="https://contrib.rocks/image?repo=E-Mufeng/mufeng--Firefly" />
 ></a>
 
 このプロジェクトの基盤を築いた元のプロジェクト[fuwari](https://github.com/saicaca/fuwari)に貢献してくれた以下の貢献者に感謝します。
@@ -317,7 +308,7 @@ MIT ライセンスに基づき、コードの自由な使用、変更、配布�
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=CuteLeaf/Firefly&type=Date)](https://star-history.com/#CuteLeaf/Firefly&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=E-Mufeng/mufeng--Firefly&type=Date)](https://star-history.com/#E-Mufeng/mufeng--Firefly&Date)
 
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

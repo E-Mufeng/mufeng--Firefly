@@ -1,0 +1,20 @@
+name = "mufeng-r2-proxy"
+main = "worker.js"
+compatibility_date = "2026-08-21"
+workers_dev = true
+
+# R2 通过 binding 访问，Worker 源码中不出现任何密钥。
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "blog-mufeng"
+
+[[routes]]
+pattern = "static.6261025.xyz/*"
+zone_name = "6261025.xyz"
+
+[vars]
+ALLOWED_ORIGINS = "https://6261025.xyz,https://www.6261025.xyz,https://memos.6261025.xyz,https://demo.6261025.xyz,http://localhost:4321,http://127.0.0.1:4321"
+ALLOWED_REFERERS = "6261025.xyz,www.6261025.xyz,memos.6261025.xyz,demo.6261025.xyz,static.6261025.xyz,localhost,127.0.0.1"
+CACHE_CONTROL = "public, max-age=86400"
+REQUIRE_REFERER = "false"
+FORCE_HTTPS = "true"

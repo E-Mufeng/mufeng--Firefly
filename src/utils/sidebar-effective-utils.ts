@@ -71,8 +71,10 @@ export function buildFooterClass(config: ResponsiveSidebarConfig): string {
  */
 export function getEffectiveSidebarState(
 	ctx: EffectiveSidebarContext,
+	options?: { hideSidebars?: boolean },
 ): EffectiveSidebarState {
 	const { isPostPage } = ctx;
+	const hideSidebars = options?.hideSidebars === true;
 
 	const sidebarConfig = getResponsiveSidebarConfig();
 
@@ -93,16 +95,19 @@ export function getEffectiveSidebarState(
 		shouldShowBothSidebarsOnPostPage &&
 		sidebarLayoutConfig.position === "right";
 
-	const effectiveIsBothSidebars: boolean =
-		sidebarConfig.isBothSidebars || shouldShowBothSidebarsOnPostPage;
-	const effectiveHasRightComponents: boolean =
-		sidebarConfig.hasRightComponents ||
-		(shouldAddRightSidebar &&
-			sidebarLayoutConfig.rightComponents.some((comp) => comp.enable));
-	const effectiveHasLeftComponents: boolean =
-		sidebarConfig.hasLeftComponents ||
-		(shouldAddLeftSidebar &&
-			sidebarLayoutConfig.leftComponents.some((comp) => comp.enable));
+	const effectiveIsBothSidebars: boolean = hideSidebars
+		? false
+		: sidebarConfig.isBothSidebars || shouldShowBothSidebarsOnPostPage;
+	const effectiveHasRightComponents: boolean = hideSidebars
+		? false
+		: sidebarConfig.hasRightComponents ||
+			(shouldAddRightSidebar &&
+				sidebarLayoutConfig.rightComponents.some((comp) => comp.enable));
+	const effectiveHasLeftComponents: boolean = hideSidebars
+		? false
+		: sidebarConfig.hasLeftComponents ||
+			(shouldAddLeftSidebar &&
+				sidebarLayoutConfig.leftComponents.some((comp) => comp.enable));
 
 	// 使用effective值重新生成网格类
 	// 当position为right且文章页临时显示左侧栏时，tabletSidebar应为right（保持显示主侧栏）
@@ -137,7 +142,7 @@ export function getEffectiveSidebarState(
 		effectiveHasLeftComponents,
 		effectiveHasRightComponents,
 		effectiveTabletSidebar,
-		mobileShowSidebar: sidebarConfig.mobileShowSidebar,
+		mobileShowSidebar: hideSidebars ? false : sidebarConfig.mobileShowSidebar,
 		updatedGridConfig,
 		gridCols,
 		sidebarClass,

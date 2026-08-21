@@ -105,7 +105,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			},
 			{
 				name: "Gitee",
-				url: "",
+				url: "https://gitee.com/MonSter_Cxs",
 				external: true,
 				icon: "fa7-brands:gitee",
 			},
@@ -115,22 +115,8 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 				external: true,
 				icon: "fa7-brands:qq",
 			},
-			{
-				name: "Firefly文档",
-				url: "https://docs-firefly.cuteleaf.cn",
-				external: true,
-				icon: "material-symbols:docs",
-			},
 		],
 	});
-
-	// 文档链接
-	// links.push({
-	// 	name: "文档",
-	// 	url: "https://docs-firefly.cuteleaf.cn",
-	// 	external: true,
-	// 	icon: "material-symbols:docs",
-	// });
 
 	return { links } as NavBarConfig;
 };

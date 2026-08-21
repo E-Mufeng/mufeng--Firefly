@@ -1,7 +1,4 @@
 {
-  "src:assets/images/avatar.avif": "dcd8d5d1cecabea9a9",
-  "public:gallery/firefly-2026/cover.avif": "7588a28a8f989e8d88",
-  "public:gallery/firefly-2026/1.avif": "c8bca9dde6d2babfb5",
   "src:content/posts/guide/cover.avif": "c8bca9dde6d2babfb5",
   "src:content/posts/images/vitepress.avif": "3d3d43e1e1e7ebe0da",
   "src:content/posts/images/right-grid2.avif": "cbcdcddddcd9d8d7db",
@@ -31,7 +28,14 @@
   "src:assets/images/DesktopWallpaper/d3.avif": "4268936f829e99adc7",
   "src:assets/images/DesktopWallpaper/d2.avif": "e8f3e6b0bdb4f5e6de",
   "src:assets/images/DesktopWallpaper/d1.avif": "8b9bb59ba6bae7d7dd",
-  "public:assets/images/sponsor/wechat.png": "d5d5d5dad9d7dbd8cf",
-  "public:assets/images/sponsor/alipay.png": "8ebbde91bedf93c0e0",
-  "public:assets/images/ad/ad1.webp": "a1b8b68a8e918c8f93"
+  "public:assets/images/ad/ad1.webp": "a1b8b68a8e918c8f93",
+  "src:assets/images/avatar.png": "9da19cbabfbac3c8c2",
+  "src:content/posts/images/default-cover.png": "78b9cc696a64797977",
+  "src:assets/images/DesktopWallpaper/mufeng-gojo.png": "22324d2842631c2b41",
+  "src:assets/images/DesktopWallpaper/mufeng-bedroom.png": "78b9cc696a64797977",
+  "src:assets/images/DesktopWallpaper/mufeng-3d.png": "393b3b313436565d64",
+  "public:gallery/mufeng-daily/4.jpg": "788178a8976c554d35",
+  "public:gallery/mufeng-daily/3.jpg": "605c404348304c4633",
+  "public:gallery/mufeng-daily/2.jpg": "6b80929f9c93525241",
+  "public:gallery/mufeng-daily/1.jpg": "a5c2cbabc3c8527277"
 }

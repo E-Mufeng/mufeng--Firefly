@@ -1,0 +1,19 @@
+[
+	{
+		"AllowedOrigins": [
+			"http://localhost:4321",
+			"http://127.0.0.1:4321",
+			"https://preview.6261025.xyz"
+		],
+		"AllowedMethods": ["GET", "HEAD", "OPTIONS"],
+		"AllowedHeaders": ["Range", "Content-Type"],
+		"ExposeHeaders": [
+			"ETag",
+			"Content-Length",
+			"Accept-Ranges",
+			"Content-Range",
+			"Cache-Control"
+		],
+		"MaxAgeSeconds": 3600
+	}
+]

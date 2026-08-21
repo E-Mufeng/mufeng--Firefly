@@ -27,6 +27,7 @@ interface Props {
 	postCategory?: string;
 	headings?: MarkdownHeading[];
 	encrypted?: boolean;
+	hideSidebars?: boolean;
 	bannerPostMeta?: {
 		title: string;
 		description?: string;
@@ -48,6 +49,7 @@ const {
 	postCategory,
 	headings = [],
 	encrypted = false,
+	hideSidebars = false,
 	bannerPostMeta,
 } = Astro.props;
 
@@ -63,7 +65,7 @@ const banner = getBannerVisibilityState({
 	title,
 	bannerPostMeta,
 });
-const sidebar = getEffectiveSidebarState({ isPostPage });
+const sidebar = getEffectiveSidebarState({ isPostPage }, { hideSidebars });
 
 const {
 	isBannerMode,
@@ -166,7 +168,7 @@ const {
             />
 
             {/* 移动端底部组件 - 768px及以下显示 */}
-            {sidebarLayoutConfig.mobileBottomComponents && sidebarLayoutConfig.mobileBottomComponents.length > 0 && (
+            {!hideSidebars && sidebarLayoutConfig.mobileBottomComponents && sidebarLayoutConfig.mobileBottomComponents.length > 0 && (
                 <div id="mobile-bottom-sidebar" class="col-span-1 block md:hidden mt-4">
 					<SideBar side="bottom" headings={headings} encrypted={encrypted}></SideBar>
                 </div>

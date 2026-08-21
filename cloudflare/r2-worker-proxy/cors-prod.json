@@ -1,0 +1,20 @@
+[
+	{
+		"AllowedOrigins": [
+			"https://6261025.xyz",
+			"https://www.6261025.xyz",
+			"https://memos.6261025.xyz",
+			"https://demo.6261025.xyz"
+		],
+		"AllowedMethods": ["GET", "HEAD", "OPTIONS"],
+		"AllowedHeaders": ["Range", "Content-Type"],
+		"ExposeHeaders": [
+			"ETag",
+			"Content-Length",
+			"Accept-Ranges",
+			"Content-Range",
+			"Cache-Control"
+		],
+		"MaxAgeSeconds": 3600
+	}
+]

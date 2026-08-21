@@ -1,6 +1,7 @@
 /**
  * remark-wiki-link — Obsidian 风格 Wiki Link 插件
  * @author CuteLeaf <xiaye@msn.com>
+ * Modified by E-Mufeng <chenormonsters@gmail.com>
  */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";

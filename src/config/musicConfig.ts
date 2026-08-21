@@ -9,7 +9,7 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	showInSidebar: true,
 
 	// 使用方式："meting" 使用 Meting API，"local" 使用本地音乐列表
-	mode: "local",
+	mode: "meting",
 
 	// 默认音量 (0-1)
 	volume: 0.7,
@@ -23,21 +23,20 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	// Meting API 配置
 	meting: {
 		// Meting API 地址
-		// 默认使用官方 API，也可以使用自定义 API
-		api: "https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r",
+		// 使用 static 域名的 R2 Worker 代理：歌单仍走 Meting 格式，
+		// 播放地址和歌词改为 Tang API 实时解析，避免原 Meting URL 失效。
+		api: "https://static.6261025.xyz/music/playlist?server=:server&type=:type&id=:id&r=:r",
 		// 音乐平台：netease=网易云音乐, tencent=QQ音乐, kugou=酷狗音乐, xiami=虾米音乐, baidu=百度音乐
-		server: "netease",
+		server: "tencent",
 		// 类型：song=单曲, playlist=歌单, album=专辑, search=搜索, artist=艺术家
 		type: "playlist",
 		// 歌单/专辑/单曲 ID 或搜索关键词
-		id: "10046455237",
+		id: "7590460594",
 		// 认证 token（可选）
 		auth: "",
 		// 备用 API 配置（当主 API 失败时使用）
-		fallbackApis: [
-			"https://api.injahow.cn/meting/?server=:server&type=:type&id=:id",
-			"https://api.moeyao.cn/meting/?server=:server&type=:type&id=:id",
-		],
+		// Worker 内部已做多源回退，前端无需再配置备用地址。
+		fallbackApis: [],
 	},
 
 	// 本地音乐配置（当 mode 为 'local' 时使用）
@@ -46,14 +45,6 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	// 2. 或者直接填入歌词字符串内容
 	// lrc: "[00:00.00]歌词内容...",
 	local: {
-		playlist: [
-			{
-				name: "使一颗心免于哀伤",
-				artist: "知更鸟 / HOYO-MiX / Chevy",
-				url: "/assets/music/使一颗心免于哀伤-哼唱.mp3",
-				cover: "/assets/music/cover/109951169585655912.webp",
-				lrc: "",
-			},
-		],
+		playlist: [],
 	},
 };

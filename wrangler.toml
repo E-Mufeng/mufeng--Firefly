@@ -4,5 +4,13 @@ compatibility_date = "2026-08-21" # 更为今日
 [assets]
 directory = "./dist"
 
+[[routes]]
+pattern = "6261025.xyz/*"
+zone_name = "6261025.xyz"
+
+[[routes]]
+pattern = "www.6261025.xyz/*"
+zone_name = "6261025.xyz"
+
 [vars]
 NODE_VERSION = "22"

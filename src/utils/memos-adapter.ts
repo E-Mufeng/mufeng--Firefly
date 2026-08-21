@@ -2,6 +2,7 @@
  * Memos API 客户端适配器
  * 直接从 Memos API 获取数据并转换为动态系统格式
  * @author: CuteLeaf <xiaye@msn.com>
+ * Modified by E-Mufeng <chenormonsters@gmail.com>
  */
 
 interface MemoAttachment {
