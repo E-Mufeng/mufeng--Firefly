@@ -90,6 +90,18 @@ let links: NavBarLink[] = resolveNavbarLinks(
 		.filter((link): link is NavBarLink => link !== null),
 );
 
+// 关于页保持纯净：不显示包含 GitHub 等外部链接的导航分组
+const isAboutPage = Astro.url.pathname.startsWith("/about/");
+if (isAboutPage) {
+	links = links.filter(
+		(link) =>
+			!link.children ||
+			!link.children.some(
+				(child) => child.url === "https://github.com/E-Mufeng",
+			),
+	);
+}
+
 // 处理导航栏 Logo 图片，image / url 类型支持亮暗色分别设置
 const logoConfig = siteConfig.navbar.logo;
 const logoAlt = logoConfig?.alt || siteConfig.title;
