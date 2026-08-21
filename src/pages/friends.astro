@@ -196,6 +196,69 @@ const description =
   )}
 
   <script slot="head" is:inline>
+    if (!customElements.get("friend-apply-form")) {
+      class FriendApplyForm extends HTMLElement {
+        constructor() {
+          super();
+          this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        connectedCallback() {
+          const form = this.querySelector("[data-friend-form]");
+          if (form) {
+            form.addEventListener("submit", this.handleSubmit);
+          }
+        }
+
+        disconnectedCallback() {
+          const form = this.querySelector("[data-friend-form]");
+          if (form) {
+            form.removeEventListener("submit", this.handleSubmit);
+          }
+        }
+
+        handleSubmit(e) {
+          e.preventDefault();
+          const get = (name) =>
+            (this.querySelector(`[data-field="${name}"]`)?.value || "").trim();
+          const name = get("name");
+          const url = get("url");
+          if (!name || !url) return;
+
+          const params = new URLSearchParams({
+            title: `[友链申请] ${name}`,
+            body: [
+              "### 网站名称",
+              name,
+              "### 网站链接",
+              url,
+              "### 友链页面 URL",
+              get("friend_url"),
+              "### 网站描述",
+              get("description") || "暂无描述",
+              "### 头像 URL",
+              get("avatar") || "暂无头像",
+              "### 邮箱",
+              get("email") || "未填写",
+              "",
+              "请审核后添加友链，谢谢。",
+            ].join("\n\n"),
+          });
+          const issueUrl =
+            "https://github.com/E-Mufeng/mufeng--Firefly/issues/new?" +
+            params.toString();
+          window.open(issueUrl, "_blank", "noopener,noreferrer");
+          const hint = this.querySelector("[data-friend-form-hint]");
+          if (hint) {
+            hint.textContent = "已生成申请链接，请在打开的 GitHub 页面确认提交。";
+          }
+        }
+      }
+      customElements.define("friend-apply-form", FriendApplyForm);
+    }
+  </script>
+
+  <script slot="head" is:inline>
     if (!customElements.get("friend-filter")) {
       class FriendFilter extends HTMLElement {
         selectedTag = "all";

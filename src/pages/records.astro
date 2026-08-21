@@ -1,0 +1,83 @@
+---
+import { Icon } from "astro-icon/components";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const title = "记录";
+const description = "把走过的路、看过的东西和写过的话收在这里。";
+
+const recordEntries = [
+	{
+		name: "动态",
+		url: "/dynamic/",
+		icon: "material-symbols:forum-rounded",
+		desc: "随手写下的碎片与心情",
+	},
+	{
+		name: "归档",
+		url: "/archive/",
+		icon: "material-symbols:archive",
+		desc: "按时间整理的文章列表",
+	},
+	{
+		name: "分类",
+		url: "/categories/",
+		icon: "material-symbols:folder-open-rounded",
+		desc: "按主题浏览全部内容",
+	},
+	{
+		name: "标签",
+		url: "/tags/",
+		icon: "material-symbols:tag-rounded",
+		desc: "用标签快速找到感兴趣的内容",
+	},
+	{
+		name: "相册",
+		url: "/gallery/",
+		icon: "material-symbols:photo-library",
+		desc: "照片与壁纸的收藏夹",
+	},
+	{
+		name: "留言板",
+		url: "/guestbook/",
+		icon: "material-symbols:chat",
+		desc: "来这里留下你的足迹",
+	},
+];
+---
+
+<MainGridLayout title={title} description={description}>
+	<div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<div class="mb-6">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="h-8 w-8 rounded-lg bg-(--primary) flex items-center justify-center text-white dark:text-black/70">
+						<Icon is:inline name="material-symbols:edit-note-rounded" class="text-[1.5rem]" />
+					</div>
+					<div class="text-3xl font-bold text-neutral-900 dark:text-neutral-100">{title}</div>
+				</div>
+				{description && (
+					<p class="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">{description}</p>
+				)}
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+				{recordEntries.map((entry) => (
+					<a
+						href={entry.url}
+						class="group flex items-center gap-4 p-4 rounded-xl border border-(--line-divider) hover:border-(--primary) hover:bg-(--card-bg) transition-all duration-300 hover:shadow-lg"
+					>
+						<div class="w-12 h-12 shrink-0 rounded-xl bg-(--primary)/10 flex items-center justify-center text-(--primary) group-hover:scale-105 transition-transform duration-300">
+							<Icon is:inline name={entry.icon} class="text-2xl" />
+						</div>
+						<div class="min-w-0">
+							<div class="font-bold text-base text-neutral-900 dark:text-neutral-100 group-hover:text-(--primary) transition-colors">
+								{entry.name}
+							</div>
+							<div class="text-sm text-neutral-500 dark:text-neutral-400 truncate">{entry.desc}</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+</MainGridLayout>

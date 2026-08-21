@@ -27,6 +27,7 @@ export const dynamicConfig: DynamicConfig = {
 	// Memos 记得配置 CORS，否则可能会出现跨域问题
 	memos: {
 		// 是否启用 Memos 数据源
+		// 延后启用：Memos 实例部署到 memos.6261025.xyz 后再打开
 		enable: false,
 
 		// Memos 实例地址

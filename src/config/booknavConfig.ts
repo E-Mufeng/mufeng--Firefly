@@ -3,10 +3,10 @@ import type { BooknavGroup, BooknavPageConfig } from "../types/booknavConfig";
 // 书签导航页面配置
 export const booknavPageConfig: BooknavPageConfig = {
 	// 页面标题，如果留空则使用 i18n 中的翻译
-	title: "",
+	title: "网站导航",
 
 	// 页面描述文本，如果留空则使用 i18n 中的翻译
-	description: "",
+	description: "收藏一些好用的网站，按分类整理",
 
 	// favicon 自动获取配置
 	favicon: {
@@ -128,6 +128,29 @@ export const booknavConfig: BooknavGroup[] = [
 				url: "https://carbon.now.sh",
 				desc: "把代码片段生成漂亮的图片",
 				weight: 8,
+			},
+		],
+	},
+	{
+		id: "imgbed",
+		name: "图床",
+		icon: "material-symbols:photo-library",
+		desc: "五条悟主题素材图床",
+		weight: 75,
+		items: [
+			{
+				title: "五条悟图床",
+				url: "/imgbed/",
+				desc: "对标博客风格的素材图床",
+				icon: "material-symbols:image-rounded",
+				weight: 10,
+			},
+			{
+				title: "高级图床",
+				url: "/imgbed-pro/",
+				desc: "独立的高质量图床系统",
+				icon: "material-symbols:auto-awesome-rounded",
+				weight: 9,
 			},
 		],
 	},

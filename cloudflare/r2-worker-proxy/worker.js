@@ -249,6 +249,7 @@ async function handleMusicRequest(request, env, url) {
 		const playlist = data.map((item) => {
 			const title = item.title || item.name || "未知歌曲";
 			const artist = item.author || item.artist || "未知歌手";
+			const sourcePic = item.pic || item.cover || "";
 			const query = new URLSearchParams({
 				title,
 				artist,
@@ -257,7 +258,9 @@ async function handleMusicRequest(request, env, url) {
 				title,
 				author: artist,
 				url: `${origin}/music/stream?${query}`,
-				pic: item.pic || item.cover || "",
+				pic: sourcePic
+					? `${origin}/music/pic?src=${encodeURIComponent(sourcePic)}`
+					: "",
 				lrc: `${origin}/music/lrc?${query}`,
 			};
 		});
@@ -267,6 +270,35 @@ async function handleMusicRequest(request, env, url) {
 		});
 		withMusicCors(headers, request, env);
 		return new Response(JSON.stringify(playlist), { status: 200, headers });
+	}
+
+	if (path === "/music/pic") {
+		const src = url.searchParams.get("src") || "";
+		if (!/^https?:\/\//i.test(src)) {
+			return jsonResponse(400, "Invalid image src");
+		}
+		try {
+			const res = await fetch(src, {
+				headers: {
+					"User-Agent": "Mozilla/5.0",
+					Referer: "https://music.163.com/",
+				},
+			});
+			if (!res.ok) {
+				return jsonResponse(502, "Image fetch failed");
+			}
+			const headers = new Headers();
+			headers.set(
+				"Content-Type",
+				res.headers.get("Content-Type") || "image/jpeg",
+			);
+			headers.set("Cache-Control", "public, max-age=86400");
+			headers.set("X-Content-Type-Options", "nosniff");
+			withMusicCors(headers, request, env);
+			return new Response(res.body, { status: 200, headers });
+		} catch {
+			return jsonResponse(502, "Image fetch failed");
+		}
 	}
 
 	if (path === "/music/stream") {

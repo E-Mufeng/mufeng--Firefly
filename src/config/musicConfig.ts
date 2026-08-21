@@ -17,8 +17,8 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	// 播放模式：'list'=列表循环, 'one'=单曲循环, 'random'=随机播放
 	playMode: "list",
 
-	// 是否显启用歌词
-	showLyrics: false,
+	// 是否显启用歌词：开启后播放器显示歌词按钮，默认收起，可手动展开
+	showLyrics: true,
 
 	// Meting API 配置
 	meting: {

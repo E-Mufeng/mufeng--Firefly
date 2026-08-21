@@ -1,0 +1,145 @@
+---
+import { Icon } from "astro-icon/components";
+import { imgbedImages } from "@/config";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const title = "五条悟图床";
+const description = "五条悟主题素材合集，支持复制直链与在线预览。";
+const images = imgbedImages;
+---
+
+<MainGridLayout title={title} description={description} hideSidebars>
+	<div class="w-full">
+		<div class="card-base relative overflow-hidden rounded-(--radius-large) px-7 py-8 sm:px-10 sm:py-10">
+			<div class="absolute inset-0 pointer-events-none opacity-[0.06] bg-[radial-gradient(circle_at_20%_20%,var(--primary),transparent_45%),radial-gradient(circle_at_80%_60%,var(--primary),transparent_40%)]" />
+			<div class="relative">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="h-10 w-10 rounded-xl bg-(--primary) flex items-center justify-center text-white dark:text-black/70">
+						<Icon is:inline name="material-symbols:photo-library" class="text-2xl" />
+					</div>
+					<div class="text-3xl font-bold text-neutral-900 dark:text-neutral-100">{title}</div>
+				</div>
+				<p class="max-w-2xl text-base text-neutral-600 dark:text-neutral-400 leading-relaxed mb-5">{description}</p>
+				<div class="flex flex-wrap items-center gap-3">
+					<a href="/imgbed-pro/" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-(--primary) text-white text-sm font-medium hover:opacity-90 transition-opacity">
+						<Icon is:inline name="material-symbols:auto-awesome" class="text-lg" />
+						进入高级图床
+					</a>
+					<span class="text-xs text-neutral-500 dark:text-neutral-400">{images.length} 个素材</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+			{images.map((item) => (
+				<div class="card-base group overflow-hidden rounded-(--radius-large) relative">
+					<button
+						type="button"
+						data-lightbox={item.id}
+						class="block w-full aspect-[4/5] overflow-hidden bg-black/5 dark:bg-white/5 cursor-zoom-in relative"
+					>
+						{item.type === "video" ? (
+							<video
+								src={item.src}
+								class="w-full h-full object-cover"
+								muted
+								loop
+								playsinline
+								preload="metadata"
+								data-lightbox-media
+							/>
+						) : (
+							<img
+								src={item.src}
+								alt={item.title}
+								loading="lazy"
+								decoding="async"
+								class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								data-lightbox-media
+							/>
+						)}
+					</button>
+					<div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-between gap-2">
+						<div class="min-w-0">
+							<div class="text-sm font-bold text-white truncate">{item.title}</div>
+							<div class="text-xs text-white/70">{item.category}</div>
+						</div>
+						<div class="flex items-center gap-2 shrink-0">
+							<button
+								type="button"
+								data-copy={item.src}
+								title="复制链接"
+								class="w-8 h-8 rounded-lg bg-white/15 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur transition-colors"
+							>
+								<Icon is:inline name="material-symbols:link-rounded" class="text-lg" />
+							</button>
+							<a
+								href={item.src}
+								target="_blank"
+								rel="noopener noreferrer"
+								title="打开原图"
+								class="w-8 h-8 rounded-lg bg-white/15 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur transition-colors"
+							>
+								<Icon is:inline name="material-symbols:open-in-new-rounded" class="text-lg" />
+							</a>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<div id="imgbed-lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true">
+		<button type="button" data-lightbox-close class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+			<Icon is:inline name="material-symbols:close-rounded" class="text-2xl" />
+		</button>
+		<div id="imgbed-lightbox-content" class="max-w-4xl max-h-[85vh] w-full"></div>
+	</div>
+
+	<script is:inline>
+		(function () {
+			var root = document;
+			function fullUrl(src) {
+				return /^https?:\/\//.test(src) ? src : location.origin + src;
+			}
+
+			function openLightbox(item) {
+				var box = root.getElementById("imgbed-lightbox");
+				var content = root.getElementById("imgbed-lightbox-content");
+				if (!box || !content) return;
+				if (item.dataset.type === "video") {
+					content.innerHTML = '<video src="' + fullUrl(item.getAttribute("data-src")) + '" class="w-full max-h-[85vh] rounded-xl bg-black" controls autoplay muted loop playsinline></video>';
+				} else {
+					content.innerHTML = '<img src="' + fullUrl(item.getAttribute("data-src")) + '" class="w-full max-h-[85vh] object-contain rounded-xl" alt="" />';
+				}
+				box.classList.remove("hidden");
+				box.classList.add("flex");
+			}
+
+			root.addEventListener("click", function (e) {
+				var trigger = e.target.closest("[data-lightbox]");
+				if (trigger) {
+					e.preventDefault();
+					var media = trigger.querySelector("[data-lightbox-media]");
+					var src = media ? media.getAttribute("src") : "";
+					openLightbox({ dataset: { type: trigger.querySelector("video") ? "video" : "image", src: src } });
+					return;
+				}
+				if (e.target.closest("[data-lightbox-close]")) {
+					var box = root.getElementById("imgbed-lightbox");
+					if (box) {
+						box.classList.add("hidden");
+						box.classList.remove("flex");
+					}
+				}
+				if (e.target.closest("[data-copy]")) {
+					var btn = e.target.closest("[data-copy]");
+					navigator.clipboard.writeText(fullUrl(btn.getAttribute("data-copy"))).then(function () {
+						btn.title = "已复制";
+						setTimeout(function () { btn.title = "复制链接"; }, 1500);
+					});
+				}
+			});
+		})();
+	</script>
+</MainGridLayout>

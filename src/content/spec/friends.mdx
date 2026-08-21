@@ -132,6 +132,53 @@ export const notes = [
     </div>
   </div>
 
+  {/* 自助申请友链表单 */}
+  <friend-apply-form class="not-prose mt-4 rounded-2xl border border-(--line-divider) overflow-hidden">
+    <div class="p-5 sm:p-6">
+      <h3 class="text-base font-bold mb-2 flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-(--primary)/10 flex items-center justify-center text-(--primary) text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        </span>
+        自助申请友链
+      </h3>
+      <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
+        填写你的站点信息，点击提交后会生成一条 GitHub Issue 申请，方便我快速审核并添加友链。
+      </p>
+      <form data-friend-form class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">网站名称</span>
+          <input data-field="name" required placeholder="例如：沐风的小屋" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">网站链接</span>
+          <input data-field="url" required type="url" placeholder="https://example.com" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">友链页面 URL</span>
+          <input data-field="friend_url" required type="url" placeholder="https://example.com/friends" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">网站描述</span>
+          <input data-field="description" placeholder="一句话介绍你的网站" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">头像 URL</span>
+          <input data-field="avatar" type="url" placeholder="https://example.com/avatar.png" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <label class="block">
+          <span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">邮箱（可选）</span>
+          <input data-field="email" type="email" placeholder="name@example.com" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+        </label>
+        <div class="sm:col-span-2 flex items-center justify-between gap-3 flex-wrap mt-1">
+          <p data-friend-form-hint class="text-xs text-neutral-500 dark:text-neutral-400"></p>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-(--primary) text-white text-sm font-medium hover:opacity-90 transition-opacity">
+            生成申请链接
+          </button>
+        </div>
+      </form>
+    </div>
+  </friend-apply-form>
+
   {/* 底部：注意事项 */}
   <div class="mt-4 rounded-2xl border border-(--line-divider) overflow-hidden">
     <div class="p-5 sm:p-6">

@@ -71,6 +71,8 @@ export default defineConfig({
 
 	base: "/",
 	trailingSlash: "always",
+	compressHTML: true,
+	prefetch: true,
 
 	// 字体配置 - 只加载实际使用的字体，跳过未引用的以加快构建
 	fonts: (() => {
@@ -248,7 +250,7 @@ export default defineConfig({
 				if (pathname === "/guestbook/" && !siteConfig.pages.guestbook) {
 					return false;
 				}
-				if (pathname === "/booknav/" && !siteConfig.pages.booknav) {
+				if (pathname === "/website-nav/" && !siteConfig.pages.booknav) {
 					return false;
 				}
 				if (pathname === "/bilibili/" && !siteConfig.pages.bilibili) {

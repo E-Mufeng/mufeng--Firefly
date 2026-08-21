@@ -24,57 +24,38 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		children: [
 			// 归档
 			LinkPresets.Archive,
-
 			// 分类
 			LinkPresets.Categories,
-
 			// 标签
 			LinkPresets.Tags,
 		],
 	});
 
-	//社交及其子菜单
+	// 网站导航
 	links.push({
-		name: "社交",
-		url: "#",
-		icon: "material-symbols:group",
-		children: [
-			// 友链
-			LinkPresets.Friends,
+		name: "网站导航",
+		url: "/website-nav/",
+		icon: "material-symbols:bookmarks",
+		pageKey: "booknav",
+	});
 
+	// 动态及其子菜单
+	links.push({
+		name: "动态",
+		url: "#",
+		icon: "material-symbols:forum-rounded",
+		children: [
+			// 动态
+			LinkPresets.Dynamic,
+			// 相册
+			LinkPresets.Gallery,
 			// 留言
 			LinkPresets.Guestbook,
 		],
 	});
 
-	// 我的及其子菜单
-	links.push({
-		name: "我的",
-		url: "#",
-		icon: "material-symbols:person",
-		children: [
-			// 动态
-			LinkPresets.Dynamic,
-
-			// 相册
-			LinkPresets.Gallery,
-
-			// 书签导航
-			LinkPresets.Booknav,
-
-			// 哔哩哔哩追番
-			LinkPresets.Bilibili,
-
-			// 番组计划
-			LinkPresets.Bangumi,
-
-			// VNDB
-			LinkPresets.VNDB,
-
-			// MyAnimeList
-			LinkPresets.MAL,
-		],
-	});
+	// 记录
+	links.push(LinkPresets.Records);
 
 	// 关于及其子菜单
 	links.push({
@@ -82,39 +63,10 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		url: "#",
 		icon: "material-symbols:info",
 		children: [
-			// 打赏
-			LinkPresets.Sponsor,
-
 			// 关于页面
 			LinkPresets.About,
-		],
-	});
-
-	// 自定义导航栏链接
-	links.push({
-		name: "链接",
-		url: "#",
-		icon: "material-symbols:link",
-		// 子菜单
-		children: [
-			{
-				name: "GitHub",
-				url: "https://github.com/E-Mufeng",
-				external: true,
-				icon: "fa7-brands:github",
-			},
-			{
-				name: "Gitee",
-				url: "https://gitee.com/MonSter_Cxs",
-				external: true,
-				icon: "fa7-brands:gitee",
-			},
-			{
-				name: "QQ交流群",
-				url: "",
-				external: true,
-				icon: "fa7-brands:qq",
-			},
+			// 友链
+			LinkPresets.Friends,
 		],
 	});
 
@@ -176,10 +128,15 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		pageKey: "gallery",
 	},
 	Booknav: {
-		name: "书签导航",
-		url: "/booknav/",
+		name: "网站导航",
+		url: "/website-nav/",
 		icon: "material-symbols:bookmarks",
 		pageKey: "booknav",
+	},
+	Records: {
+		name: "记录",
+		url: "/records/",
+		icon: "material-symbols:edit-note-rounded",
 	},
 	Bilibili: {
 		name: "哔哩哔哩",

@@ -1,0 +1,352 @@
+---
+import { Icon } from "astro-icon/components";
+import { imgbedCategories, imgbedImages } from "@/config";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+
+const title = "Mufeng ImageHost";
+const description = "独立的五条悟主题素材图床，支持搜索、筛选、复制直链与本地预览上传。";
+const categories = imgbedCategories;
+const images = imgbedImages;
+const imageCount = images.filter((item) => item.type !== "video").length;
+const videoCount = images.filter((item) => item.type === "video").length;
+---
+
+<MainGridLayout title={title} description={description} hideSidebars>
+	<div class="w-full">
+		<div class="card-base relative overflow-hidden rounded-(--radius-large) px-7 py-9 sm:px-10 sm:py-12">
+			<div class="absolute inset-0 pointer-events-none opacity-[0.08] bg-[radial-gradient(circle_at_15%_20%,var(--primary),transparent_45%),radial-gradient(circle_at_85%_75%,#f97316,transparent_40%)]" />
+			<div class="relative">
+				<div class="text-sm font-semibold tracking-wide text-(--primary) uppercase mb-2">ImageHost Pro</div>
+				<div class="flex flex-wrap items-end justify-between gap-5">
+					<div>
+						<h1 class="text-4xl sm:text-5xl font-black text-neutral-900 dark:text-neutral-100">{title}</h1>
+						<p class="mt-3 max-w-2xl text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">{description}</p>
+					</div>
+					<button
+						type="button"
+						data-open-upload
+						class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-(--primary) text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-lg shadow-(--primary)/20"
+					>
+						<Icon is:inline name="material-symbols:upload-rounded" class="text-xl" />
+						上传素材
+					</button>
+				</div>
+
+				<div class="mt-6 grid grid-cols-3 gap-3 max-w-xl">
+					<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
+						<div class="text-2xl font-black text-(--primary)">{imageCount + videoCount}</div>
+						<div class="text-xs text-neutral-500 dark:text-neutral-400">素材总数</div>
+					</div>
+					<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
+						<div class="text-2xl font-black text-(--primary)">{imageCount}</div>
+						<div class="text-xs text-neutral-500 dark:text-neutral-400">图片</div>
+					</div>
+					<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
+						<div class="text-2xl font-black text-(--primary)">{videoCount}</div>
+						<div class="text-xs text-neutral-500 dark:text-neutral-400">动态视频</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-4 card-base rounded-(--radius-large) px-5 py-4 flex flex-col lg:flex-row lg:items-center gap-3">
+			<div class="relative grow">
+				<Icon is:inline name="material-symbols:search-rounded" class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-lg pointer-events-none" />
+				<input
+					type="search"
+					data-imgbed-search
+					placeholder="搜索标题或标签..."
+					class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-(--line-divider) bg-transparent text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all"
+				/>
+			</div>
+			<div class="flex flex-wrap gap-2" data-category-filters>
+				{categories.map((category) => (
+					<button
+						type="button"
+						data-category={category}
+						class:list={[
+							"px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
+							category === "全部"
+								? "bg-(--primary) text-white"
+								: "bg-(--btn-regular-bg) text-(--btn-content) hover:bg-(--btn-regular-bg-hover)",
+						]}
+					>
+						{category}
+					</button>
+				))}
+			</div>
+		</div>
+
+		<div data-imgbed-grid class="mt-4 columns-1 sm:columns-2 xl:columns-3 gap-4 [column-fill:_balance]">
+			{images.map((item) => (
+				<div
+					class="imgbed-pro-card card-base break-inside-avoid mb-4 overflow-hidden rounded-(--radius-large) group relative"
+					data-title={item.title.toLowerCase()}
+					data-category={item.category}
+					data-tags={(item.tags || []).join(",").toLowerCase()}
+					data-type={item.type || "image"}
+					data-src={item.src}
+				>
+					<div class="relative overflow-hidden">
+						{item.type === "video" ? (
+							<video
+								src={item.src}
+								class="w-full aspect-[3/4] object-cover"
+								muted
+								loop
+								playsinline
+								preload="metadata"
+							/>
+						) : (
+							<img
+								src={item.src}
+								alt={item.title}
+								loading="lazy"
+								decoding="async"
+								class="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
+							/>
+						)}
+						<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+							<div class="w-full p-3 flex items-center justify-between gap-2">
+								<div class="min-w-0">
+									<div class="text-sm font-bold text-white truncate">{item.title}</div>
+									<div class="text-xs text-white/70 truncate">{item.category} · {(item.tags || []).join(" / ")}</div>
+								</div>
+								<div class="flex items-center gap-1.5 shrink-0">
+									<button type="button" data-action="view" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-medium backdrop-blur transition-colors">查看</button>
+									<button type="button" data-action="copy" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-medium backdrop-blur transition-colors">复制</button>
+									<a href={item.src} target="_blank" rel="noopener noreferrer" download class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-medium backdrop-blur transition-colors">下载</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+
+		<div data-imgbed-empty class="hidden flex-col items-center justify-center py-16 text-neutral-400 dark:text-neutral-500">
+			<Icon is:inline name="material-symbols:search-off-rounded" class="text-5xl mb-3" />
+			<p class="text-sm">没有找到匹配的素材</p>
+		</div>
+	</div>
+
+	<div id="imgbed-pro-lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/85 p-4" role="dialog" aria-modal="true">
+		<button type="button" data-close-lightbox class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+			<Icon is:inline name="material-symbols:close-rounded" class="text-2xl" />
+		</button>
+		<div id="imgbed-pro-lightbox-content" class="max-w-4xl max-h-[85vh] w-full"></div>
+	</div>
+
+	<div id="imgbed-upload-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true">
+		<div class="w-full max-w-lg card-base rounded-(--radius-large) p-6">
+			<div class="flex items-center justify-between mb-4">
+				<h2 class="text-lg font-bold">上传素材</h2>
+				<button type="button" data-close-upload class="w-8 h-8 rounded-lg bg-(--btn-regular-bg) text-(--btn-content) flex items-center justify-center hover:opacity-80 transition-opacity">
+					<Icon is:inline name="material-symbols:close-rounded" />
+				</button>
+			</div>
+			<form data-upload-form class="space-y-3">
+				<label class="block">
+					<span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">选择图片</span>
+					<input type="file" data-upload-file accept="image/*" required class="mt-1 block w-full text-sm file:mr-3 file:px-4 file:py-2 file:rounded-lg file:border-0 file:bg-(--primary) file:text-white file:cursor-pointer" />
+				</label>
+				<label class="block">
+					<span class="text-xs font-medium text-neutral-600 dark:text-neutral-400">标题</span>
+					<input data-upload-title placeholder="例如：五条悟 04" class="mt-1 w-full px-3 py-2 rounded-lg border border-(--line-divider) bg-transparent text-sm focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all" />
+				</label>
+				<p data-upload-hint class="text-xs text-neutral-500 dark:text-neutral-400">当前为本地预览上传，正式直传将在接入 R2 后开放。</p>
+				<button type="submit" class="w-full py-2.5 rounded-lg bg-(--primary) text-white text-sm font-bold hover:opacity-90 transition-opacity">加入图床</button>
+			</form>
+		</div>
+	</div>
+
+	<script is:inline>
+		(function () {
+			var root = document;
+			var STORAGE_KEY = "mufeng-imgbed-uploads";
+			var uploads = [];
+			var selectedCategory = "全部";
+
+			function loadUploads() {
+				try {
+					return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+				} catch (e) {
+					return [];
+				}
+			}
+
+			function saveUploads() {
+				try {
+					localStorage.setItem(STORAGE_KEY, JSON.stringify(uploads));
+				} catch (e) {}
+			}
+
+			function fullUrl(src) {
+				return /^https?:\/\//.test(src) ? src : location.origin + src;
+			}
+
+			function applyFilters() {
+				var query = (root.querySelector("[data-imgbed-search]")?.value || "").toLowerCase().trim();
+				var cards = root.querySelectorAll(".imgbed-pro-card");
+				var visible = 0;
+				cards.forEach(function (card) {
+					var title = card.dataset.title || "";
+					var tags = card.dataset.tags || "";
+					var category = card.dataset.category || "";
+					var match =
+						(selectedCategory === "全部" || category === selectedCategory) &&
+						(!query || title.includes(query) || tags.includes(query));
+					card.style.display = match ? "" : "none";
+					if (match) visible++;
+				});
+				var empty = root.querySelector("[data-imgbed-empty]");
+				if (empty) {
+					empty.classList.toggle("hidden", visible > 0);
+					empty.classList.toggle("flex", visible === 0);
+				}
+			}
+
+			function openLightbox(src, type) {
+				var box = root.getElementById("imgbed-pro-lightbox");
+				var content = root.getElementById("imgbed-pro-lightbox-content");
+				if (!box || !content) return;
+				if (type === "video") {
+					content.innerHTML = '<video src="' + fullUrl(src) + '" class="w-full max-h-[85vh] rounded-xl bg-black" controls autoplay muted loop playsinline></video>';
+				} else {
+					content.innerHTML = '<img src="' + fullUrl(src) + '" class="w-full max-h-[85vh] object-contain rounded-xl" alt="" />';
+				}
+				box.classList.remove("hidden");
+				box.classList.add("flex");
+			}
+
+			function addUploadCard(item) {
+				var grid = root.querySelector("[data-imgbed-grid]");
+				if (!grid) return;
+				var card = document.createElement("div");
+				card.className = "imgbed-pro-card card-base break-inside-avoid mb-4 overflow-hidden rounded-(--radius-large) group relative";
+				card.dataset.title = (item.title || "本地素材").toLowerCase();
+				card.dataset.category = item.category || "本地";
+				card.dataset.tags = (item.tags || ["本地"]).join(",").toLowerCase();
+				card.dataset.type = "image";
+				card.dataset.src = item.src;
+				card.innerHTML =
+					'<div class="relative overflow-hidden">' +
+					'<img src="' + item.src + '" alt="' + (item.title || "本地素材") + '" class="w-full aspect-[3/4] object-cover" />' +
+					'<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">' +
+					'<div class="w-full p-3 flex items-center justify-between gap-2">' +
+					'<div class="min-w-0"><div class="text-sm font-bold text-white truncate">' + (item.title || "本地素材") + '</div><div class="text-xs text-white/70 truncate">本地预览</div></div>' +
+					'<div class="flex items-center gap-1.5 shrink-0">' +
+					'<button type="button" data-action="view" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-medium backdrop-blur transition-colors">查看</button>' +
+					'<button type="button" data-action="copy" class="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-medium backdrop-blur transition-colors">复制</button>' +
+					'<button type="button" data-action="delete" class="px-2.5 py-1.5 rounded-lg bg-red-500/70 hover:bg-red-500/90 text-white text-xs font-medium backdrop-blur transition-colors">删除</button>' +
+					"</div></div></div></div>";
+				grid.appendChild(card);
+			}
+
+			uploads = loadUploads();
+			uploads.forEach(addUploadCard);
+
+			root.addEventListener("click", function (e) {
+				var categoryBtn = e.target.closest("[data-category]");
+				if (categoryBtn) {
+					selectedCategory = categoryBtn.dataset.category;
+					root.querySelectorAll("[data-category]").forEach(function (btn) {
+						if (btn === categoryBtn) {
+							btn.className = "px-3 py-1.5 rounded-full text-sm font-medium bg-(--primary) text-white transition-colors";
+						} else {
+							btn.className = "px-3 py-1.5 rounded-full text-sm font-medium bg-(--btn-regular-bg) text-(--btn-content) hover:bg-(--btn-regular-bg-hover) transition-colors";
+						}
+					});
+					applyFilters();
+					return;
+				}
+
+				var actionBtn = e.target.closest("[data-action]");
+				if (actionBtn) {
+					var card = actionBtn.closest(".imgbed-pro-card");
+					var src = card?.dataset.src || "";
+					var type = card?.dataset.type || "image";
+					var action = actionBtn.dataset.action;
+					if (action === "view") openLightbox(src, type);
+					if (action === "copy") {
+						navigator.clipboard.writeText(fullUrl(src)).then(function () {
+							actionBtn.textContent = "已复制";
+							setTimeout(function () { actionBtn.textContent = "复制"; }, 1500);
+						});
+					}
+					if (action === "delete") {
+						var srcToRemove = src;
+						uploads = uploads.filter(function (u) { return u.src !== srcToRemove; });
+						saveUploads();
+						card.remove();
+						applyFilters();
+					}
+					return;
+				}
+
+				if (e.target.closest("[data-open-upload]")) {
+					var modal = root.getElementById("imgbed-upload-modal");
+					if (modal) {
+						modal.classList.remove("hidden");
+						modal.classList.add("flex");
+					}
+					return;
+				}
+				if (e.target.closest("[data-close-upload]")) {
+					var modal2 = root.getElementById("imgbed-upload-modal");
+					if (modal2) {
+						modal2.classList.add("hidden");
+						modal2.classList.remove("flex");
+					}
+					return;
+				}
+				if (e.target.closest("[data-close-lightbox]")) {
+					var lb = root.getElementById("imgbed-pro-lightbox");
+					if (lb) {
+						lb.classList.add("hidden");
+						lb.classList.remove("flex");
+					}
+				}
+			});
+
+			root.addEventListener("input", function (e) {
+				if (e.target.matches("[data-imgbed-search]")) applyFilters();
+			});
+
+			root.querySelector("[data-upload-form]")?.addEventListener("submit", function (e) {
+				e.preventDefault();
+				var fileInput = root.querySelector("[data-upload-file]");
+				var titleInput = root.querySelector("[data-upload-title]");
+				var hint = root.querySelector("[data-upload-hint]");
+				var file = fileInput?.files?.[0];
+				if (!file) return;
+				if (file.size > 2 * 1024 * 1024) {
+					if (hint) hint.textContent = "文件较大，当前本地预览仅支持 2MB 以内，正式直传将在接入 R2 后开放。";
+					return;
+				}
+				var reader = new FileReader();
+				reader.onload = function () {
+					var item = {
+						src: reader.result,
+						title: titleInput?.value?.trim() || file.name.replace(/\.[^.]+$/, ""),
+						category: "本地",
+						tags: ["本地"],
+					};
+					uploads.push(item);
+					saveUploads();
+					addUploadCard(item);
+					applyFilters();
+					fileInput.value = "";
+					if (titleInput) titleInput.value = "";
+					if (hint) hint.textContent = "已加入本地图床预览，正式直传将在接入 R2 后开放。";
+					var modal3 = root.getElementById("imgbed-upload-modal");
+					if (modal3) {
+						modal3.classList.add("hidden");
+						modal3.classList.remove("flex");
+					}
+				};
+				reader.readAsDataURL(file);
+			});
+		})();
+	</script>
+</MainGridLayout>

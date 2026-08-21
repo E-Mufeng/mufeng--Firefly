@@ -35,6 +35,7 @@ const pages = resolvePageToggles({
 	// ── 关于 (About) ──────────────────────────────────
 
 	// 打赏页面开关
+	// 延后启用：收款码准备好后再打开
 	sponsor: false,
 });
 
