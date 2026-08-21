@@ -87,12 +87,12 @@ function getQrLqipProps(qrCode: string) {
 
                         <!-- 二维码或链接 -->
                         {method.qrCode && (
-                          <div class="relative w-full max-w-[200px] aspect-square bg-white rounded-lg p-4 shadow-md mb-4 overflow-hidden">
+                          <div class="relative w-full max-w-[220px] bg-white rounded-lg p-4 shadow-md mb-4 overflow-hidden">
                             <div class="lqip-placeholder absolute inset-0 rounded-lg pointer-events-none" style={getQrLqipProps(method.qrCode).style} aria-hidden="true"></div>
                             <img
                               src={url(method.qrCode)}
                               alt={`${method.name} ${i18n(I18nKey.scanToSponsor)}`}
-                              class="relative w-full h-full object-contain opacity-0 transition-opacity duration-500 ease-out"
+                              class="relative w-full h-auto object-contain opacity-0 transition-opacity duration-500 ease-out"
                               loading="lazy"
                             />
                           </div>
@@ -213,4 +213,3 @@ function getQrLqipProps(qrCode: string) {
     gap: 0.75rem;
   }
 </style>
-

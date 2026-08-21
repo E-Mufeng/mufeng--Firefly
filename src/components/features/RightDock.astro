@@ -9,11 +9,17 @@ import { Icon } from "astro-icon/components";
 	</button>
 
 	<div class="dock-items">
-		<a href="/guestbook/" title="留言板" class="dock-item">
+		<button type="button" data-dock-action="dark" title="暗色模式" class="dock-item">
+			<Icon is:inline name="material-symbols:dark-mode-outline-rounded" />
+		</button>
+		<a href="/guestbook/" title="留言" class="dock-item">
 			<Icon is:inline name="material-symbols:chat-rounded" />
 		</a>
 		<button type="button" data-dock-action="theme" title="主题色" class="dock-item">
 			<Icon is:inline name="material-symbols:palette-rounded" />
+		</button>
+		<button type="button" data-dock-action="ai" title="AI 助手" class="dock-item">
+			<Icon is:inline name="material-symbols:auto-awesome-rounded" />
 		</button>
 		<button type="button" data-dock-action="music" title="音乐" class="dock-item">
 			<Icon is:inline name="material-symbols:music-note-rounded" />
@@ -27,14 +33,17 @@ import { Icon } from "astro-icon/components";
 		<a href="/#announcements" title="公告" class="dock-item">
 			<Icon is:inline name="material-symbols:campaign-rounded" />
 		</a>
-		<button type="button" data-dock-action="ai" title="AI 助手" class="dock-item">
-			<Icon is:inline name="material-symbols:auto-awesome-rounded" />
-		</button>
 	</div>
 
 	<div class="dock-ai-panel hidden" data-dock-ai-panel>
 		<div class="dock-ai-title">AI 助手</div>
-		<div class="dock-ai-text">接入中，后续开放。</div>
+		<input type="text" data-ai-query placeholder="输入问题，选择入口打开" class="dock-ai-input" />
+		<div class="dock-ai-actions">
+			<button type="button" data-ai-target="chatgpt">ChatGPT</button>
+			<button type="button" data-ai-target="deepseek">DeepSeek</button>
+			<button type="button" data-ai-target="bing">Bing</button>
+			<button type="button" data-ai-target="site">站内搜索</button>
+		</div>
 	</div>
 </div>
 
@@ -45,6 +54,7 @@ import { Icon } from "astro-icon/components";
 
 		var toggle = dock.querySelector("[data-dock-toggle]");
 		var aiPanel = dock.querySelector("[data-dock-ai-panel]");
+		var aiInput = dock.querySelector("[data-ai-query]");
 
 		function setCollapsed(collapsed) {
 			dock.dataset.collapsed = collapsed ? "true" : "false";
@@ -52,18 +62,50 @@ import { Icon } from "astro-icon/components";
 			toggle.title = collapsed ? "展开工具台" : "收起工具台";
 		}
 
+		function openAiTarget(target) {
+			var query = (aiInput && aiInput.value || "").trim();
+			var urls = {
+				chatgpt: "https://chatgpt.com/?q=",
+				deepseek: "https://chat.deepseek.com/?q=",
+				bing: "https://www.bing.com/search?q=",
+				site: "/search/?q=",
+			};
+			var base = urls[target];
+			if (!base) return;
+			window.open(base + encodeURIComponent(query || ""), "_blank", "noopener,noreferrer");
+		}
+
 		toggle.addEventListener("click", function () {
 			setCollapsed(dock.dataset.collapsed !== "true");
 		});
 
 		dock.addEventListener("click", function (e) {
+			if (e.target.closest("[data-dock-ai-panel]")) {
+				var targetBtn = e.target.closest("[data-ai-target]");
+				if (targetBtn) openAiTarget(targetBtn.dataset.aiTarget);
+				return;
+			}
+
 			var actionBtn = e.target.closest("[data-dock-action]");
 			if (!actionBtn) return;
 			var action = actionBtn.dataset.dockAction;
 
+			if (action === "dark") {
+				var isDark = document.documentElement.classList.contains("dark");
+				if (isDark) {
+					document.documentElement.classList.remove("dark");
+					localStorage.setItem("theme", "light");
+				} else {
+					document.documentElement.classList.add("dark");
+					localStorage.setItem("theme", "dark");
+				}
+				window.dispatchEvent(new CustomEvent("theme-change"));
+				return;
+			}
+
 			if (action === "theme") {
-				var themeSwitch = document.getElementById("scheme-switch");
-				if (themeSwitch) themeSwitch.click();
+				var displaySwitch = document.getElementById("display-settings-switch");
+				if (displaySwitch) displaySwitch.click();
 				return;
 			}
 
@@ -171,7 +213,7 @@ import { Icon } from "astro-icon/components";
 		position: absolute;
 		right: calc(100% + 0.75rem);
 		top: 6rem;
-		width: 10rem;
+		width: 14rem;
 		padding: 0.75rem;
 		border-radius: 0.75rem;
 		border: 1px solid var(--line-divider);
@@ -182,12 +224,45 @@ import { Icon } from "astro-icon/components";
 	.dock-ai-title {
 		font-weight: 700;
 		font-size: 0.85rem;
-		margin-bottom: 0.25rem;
+		margin-bottom: 0.5rem;
 	}
 
-	.dock-ai-text {
+	.dock-ai-input {
+		width: 100%;
+		padding: 0.5rem 0.625rem;
+		margin-bottom: 0.5rem;
 		font-size: 0.75rem;
-		color: var(--content-meta);
+		border-radius: 0.5rem;
+		border: 1px solid var(--line-divider);
+		background: transparent;
+		color: var(--btn-content);
+		outline: none;
+	}
+
+	.dock-ai-input:focus {
+		border-color: var(--primary);
+	}
+
+	.dock-ai-actions {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.35rem;
+	}
+
+	.dock-ai-actions button {
+		padding: 0.4rem 0.5rem;
+		font-size: 0.7rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--line-divider);
+		background: var(--btn-regular-bg);
+		color: var(--btn-content);
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.dock-ai-actions button:hover {
+		background: var(--primary);
+		color: #fff;
 	}
 
 	@media (max-width: 768px) {

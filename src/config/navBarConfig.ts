@@ -31,12 +31,29 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 网站导航
+	// 网站导航及其图床入口
 	links.push({
 		name: "网站导航",
-		url: "/website-nav/",
+		url: "#",
 		icon: "material-symbols:bookmarks",
-		pageKey: "booknav",
+		children: [
+			{
+				name: "网站导航",
+				url: "/website-nav/",
+				icon: "material-symbols:bookmarks",
+				pageKey: "booknav",
+			},
+			{
+				name: "五条悟图床",
+				url: "/imgbed/",
+				icon: "material-symbols:image-rounded",
+			},
+			{
+				name: "高级图床",
+				url: "/imgbed-pro/",
+				icon: "material-symbols:auto-awesome-rounded",
+			},
+		],
 	});
 
 	// 动态及其子菜单
