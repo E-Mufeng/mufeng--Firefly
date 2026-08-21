@@ -7,6 +7,7 @@ import HeaderTopRow from "@components/layout/HeaderTopRow.astro";
 import SideBar from "@components/layout/SideBar.astro";
 import type { MarkdownHeading } from "astro";
 import FloatingControls from "@/components/controls/FloatingControls.astro";
+import RightDock from "@/components/features/RightDock.astro";
 import CategoryBar from "@/components/layout/CategoryBar.astro";
 import SidebarColumn from "@/components/layout/SidebarColumn.astro";
 import WallpaperSection from "@/components/layout/WallpaperSection.astro";
@@ -185,6 +186,8 @@ const {
 </div>
 
 <FloatingControls headings={headings} encrypted={encrypted} />
+
+<RightDock />
 
 <!--
     触屏设备上让代码块的复制按钮默认隐藏，点一下代码块才显形。

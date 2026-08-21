@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from "astro";
 import Pagination from "@/components/common/Pagination.astro";
+import HomepageSections from "@/components/features/HomepageSections.astro";
 import PostPage from "@/components/layout/PostPage.astro";
 import { siteConfig } from "@/config";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
@@ -19,6 +20,11 @@ const len = page.data.length;
 ---
 
 <MainGridLayout>
+  {
+    page.currentPage === 1 && (
+      <HomepageSections />
+    )
+  }
   <PostPage page={page} />
   {
     page.total > page.size && (

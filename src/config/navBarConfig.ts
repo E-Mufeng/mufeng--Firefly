@@ -67,6 +67,8 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			LinkPresets.About,
 			// 友链
 			LinkPresets.Friends,
+			// 打赏
+			LinkPresets.Sponsor,
 		],
 	});
 

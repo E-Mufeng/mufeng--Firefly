@@ -1,0 +1,198 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="right-dock" data-dock data-collapsed="true" aria-label="右侧工具台">
+	<button type="button" data-dock-toggle class="dock-toggle" title="展开工具台">
+		<Icon is:inline name="material-symbols:keyboard-double-arrow-left-rounded" class="dock-expand-icon" />
+		<Icon is:inline name="material-symbols:keyboard-double-arrow-right-rounded" class="dock-collapse-icon" />
+	</button>
+
+	<div class="dock-items">
+		<a href="/guestbook/" title="留言板" class="dock-item">
+			<Icon is:inline name="material-symbols:chat-rounded" />
+		</a>
+		<button type="button" data-dock-action="theme" title="主题色" class="dock-item">
+			<Icon is:inline name="material-symbols:palette-rounded" />
+		</button>
+		<button type="button" data-dock-action="music" title="音乐" class="dock-item">
+			<Icon is:inline name="material-symbols:music-note-rounded" />
+		</button>
+		<a href="/search/" title="搜索" class="dock-item">
+			<Icon is:inline name="material-symbols:search-rounded" />
+		</a>
+		<a href="/categories/" title="分类" class="dock-item">
+			<Icon is:inline name="material-symbols:folder-open-rounded" />
+		</a>
+		<a href="/#announcements" title="公告" class="dock-item">
+			<Icon is:inline name="material-symbols:campaign-rounded" />
+		</a>
+		<button type="button" data-dock-action="ai" title="AI 助手" class="dock-item">
+			<Icon is:inline name="material-symbols:auto-awesome-rounded" />
+		</button>
+	</div>
+
+	<div class="dock-ai-panel hidden" data-dock-ai-panel>
+		<div class="dock-ai-title">AI 助手</div>
+		<div class="dock-ai-text">接入中，后续开放。</div>
+	</div>
+</div>
+
+<script is:inline>
+	(function () {
+		var dock = document.querySelector("[data-dock]");
+		if (!dock) return;
+
+		var toggle = dock.querySelector("[data-dock-toggle]");
+		var aiPanel = dock.querySelector("[data-dock-ai-panel]");
+
+		function setCollapsed(collapsed) {
+			dock.dataset.collapsed = collapsed ? "true" : "false";
+			if (aiPanel) aiPanel.classList.add("hidden");
+			toggle.title = collapsed ? "展开工具台" : "收起工具台";
+		}
+
+		toggle.addEventListener("click", function () {
+			setCollapsed(dock.dataset.collapsed !== "true");
+		});
+
+		dock.addEventListener("click", function (e) {
+			var actionBtn = e.target.closest("[data-dock-action]");
+			if (!actionBtn) return;
+			var action = actionBtn.dataset.dockAction;
+
+			if (action === "theme") {
+				var themeSwitch = document.getElementById("scheme-switch");
+				if (themeSwitch) themeSwitch.click();
+				return;
+			}
+
+			if (action === "music") {
+				var musicSwitch = document.getElementById("music-player-switch");
+				if (musicSwitch) musicSwitch.click();
+				return;
+			}
+
+			if (action === "ai") {
+				if (aiPanel) aiPanel.classList.toggle("hidden");
+			}
+		});
+	})();
+</script>
+
+<style>
+	.right-dock {
+		position: fixed;
+		top: 50%;
+		right: 1rem;
+		transform: translateY(-50%);
+		z-index: 1000;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		width: 3.25rem;
+		padding: 0.5rem;
+		border-radius: 1rem;
+		border: 1px solid var(--line-divider);
+		background: color-mix(in srgb, var(--card-bg) 86%, transparent);
+		backdrop-filter: blur(12px);
+		box-shadow: 0 8px 24px -12px rgb(0 0 0 / 0.25);
+	}
+
+	.dock-toggle {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.75rem;
+		color: var(--btn-content);
+		background: var(--btn-regular-bg);
+		transition: all 0.2s ease;
+	}
+
+	.dock-toggle:hover {
+		background: var(--btn-regular-bg-hover);
+	}
+
+	.dock-items {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		overflow: hidden;
+		transition: max-height 0.3s ease, opacity 0.2s ease;
+		max-height: 30rem;
+		opacity: 1;
+	}
+
+	.dock-item {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.75rem;
+		color: var(--btn-content);
+		background: var(--btn-regular-bg);
+		font-size: 1.25rem;
+		transition: all 0.2s ease;
+	}
+
+	.dock-item:hover {
+		background: var(--primary);
+		color: #fff;
+		transform: scale(1.08);
+	}
+
+	.right-dock[data-collapsed="true"] .dock-items {
+		max-height: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.right-dock[data-collapsed="true"] .dock-expand-icon {
+		display: block;
+	}
+
+	.right-dock[data-collapsed="true"] .dock-collapse-icon {
+		display: none;
+	}
+
+	.right-dock[data-collapsed="false"] .dock-expand-icon {
+		display: none;
+	}
+
+	.right-dock[data-collapsed="false"] .dock-collapse-icon {
+		display: block;
+	}
+
+	.dock-ai-panel {
+		position: absolute;
+		right: calc(100% + 0.75rem);
+		top: 6rem;
+		width: 10rem;
+		padding: 0.75rem;
+		border-radius: 0.75rem;
+		border: 1px solid var(--line-divider);
+		background: var(--card-bg);
+		box-shadow: 0 8px 24px -12px rgb(0 0 0 / 0.3);
+	}
+
+	.dock-ai-title {
+		font-weight: 700;
+		font-size: 0.85rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.dock-ai-text {
+		font-size: 0.75rem;
+		color: var(--content-meta);
+	}
+
+	@media (max-width: 768px) {
+		.right-dock {
+			right: 0.5rem;
+		}
+	}
+</style>
