@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/admin-whitelist.json",
+  "title": "管理账号白名单",
+  "type": "object",
+  "required": ["enabled", "admins"],
+  "properties": {
+    "enabled": { "type": "boolean" },
+    "admins": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

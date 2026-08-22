@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/sponsor.json",
+  "title": "打赏配置",
+  "type": "object",
+  "required": ["methods"],
+  "properties": {
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "usage": { "type": "string" },
+    "showSponsorsList": { "type": "boolean" },
+    "showComment": { "type": "boolean" },
+    "showButtonInPost": { "type": "boolean" },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "enabled"],
+        "properties": {
+          "name": { "type": "string" },
+          "icon": { "type": "string" },
+          "qrCode": { "type": "string" },
+          "link": { "type": "string" },
+          "description": { "type": "string" },
+          "enabled": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sponsors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "avatar": { "type": "string" },
+          "amount": { "type": "string" },
+          "date": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

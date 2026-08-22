@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/friends.json",
+  "title": "友链配置",
+  "type": "object",
+  "required": ["pageConfig", "friends"],
+  "properties": {
+    "pageConfig": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "showCustomContent": { "type": "boolean" },
+        "showComment": { "type": "boolean" },
+        "randomizeSort": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "friends": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "imgurl", "desc", "siteurl", "weight", "enabled"],
+        "properties": {
+          "title": { "type": "string" },
+          "imgurl": { "type": "string" },
+          "desc": { "type": "string" },
+          "siteurl": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "weight": { "type": "number" },
+          "enabled": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

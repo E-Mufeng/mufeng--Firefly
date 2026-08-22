@@ -59,32 +59,12 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			showOnPostPage: true,
 		},
 		{
-			// 组件类型：站点统计组件
-			type: "stats",
-			// 是否启用该组件
-			enable: true,
-			// 组件位置
-			position: "top",
-			// 是否在文章详情页显示
-			showOnPostPage: false,
-		},
-		{
-			// 组件类型：技能与工具组件
-			type: "skills",
-			// 是否启用该组件
-			enable: true,
-			// 组件位置
-			position: "top",
-			// 是否在文章详情页显示
-			showOnPostPage: false,
-		},
-		{
 			// 组件类型：音乐播放器
 			type: "music",
 			// 是否启用该组件
 			enable: true,
 			// 组件位置
-			position: "sticky",
+			position: "top",
 			// 是否在文章详情页显示
 			showOnPostPage: true,
 		},
@@ -118,6 +98,16 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 				collapseThreshold: 10,
 			},
 		},
+		{
+			// 组件类型：技能与工具组件
+			type: "skills",
+			// 是否启用该组件
+			enable: true,
+			// 组件位置
+			position: "sticky",
+			// 是否在文章详情页显示
+			showOnPostPage: false,
+		},
 	],
 
 	// 右侧边栏组件配置列表
@@ -143,7 +133,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 组件类型：站点统计组件
 			type: "stats",
 			// 是否启用该组件
-			enable: false,
+			enable: true,
 			// 组件位置
 			position: "top",
 			// 是否在文章详情页显示

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/booknav.json",
+  "title": "网站导航配置",
+  "type": "object",
+  "required": ["pageConfig", "groups"],
+  "properties": {
+    "pageConfig": {
+      "type": "object",
+      "required": ["favicon"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "favicon": {
+          "type": "object",
+          "required": ["enabled", "api"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "api": { "type": "string" }
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "items"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "icon": { "type": "string" },
+          "desc": { "type": "string" },
+          "weight": { "type": "number" },
+          "enabled": { "type": "boolean" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title", "url"],
+              "properties": {
+                "title": { "type": "string" },
+                "url": { "type": "string" },
+                "desc": { "type": "string" },
+                "icon": { "type": "string" },
+                "weight": { "type": "number" },
+                "enabled": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

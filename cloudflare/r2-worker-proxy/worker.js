@@ -346,7 +346,7 @@ function mimeType(key) {
 }
 
 export default {
-	async fetch(request, env) {
+	async fetch(request, env, ctx) {
 		const url = new URL(request.url);
 
 		if (url.protocol === "http:" && env.FORCE_HTTPS === "true") {
@@ -380,6 +380,40 @@ export default {
 		}
 
 		const range = parseRange(request.headers.get("Range"));
+
+		// 边缘缓存：仅缓存无 Range 的 GET 请求；不可用或异常时直接回退到 R2 读取
+		const cacheKey =
+			request.method === "GET" && !range
+				? new Request(url.toString(), {
+						method: "GET",
+						headers: { Accept: request.headers.get("Accept") || "*/*" },
+					})
+				: null;
+
+		if (cacheKey && typeof caches !== "undefined") {
+			try {
+				const cachedResponse = await caches.default.match(cacheKey);
+				if (cachedResponse) {
+					const cachedHeaders = new Headers(cachedResponse.headers);
+					cachedHeaders.set(
+						"Cache-Control",
+						env.CACHE_CONTROL || DEFAULT_CACHE_CONTROL,
+					);
+					if (cors) {
+						for (const [name, value] of cors.entries()) {
+							cachedHeaders.set(name, value);
+						}
+					}
+					return new Response(cachedResponse.body, {
+						status: cachedResponse.status,
+						headers: cachedHeaders,
+					});
+				}
+			} catch {
+				// 缓存不可用时继续走 R2 读取
+			}
+		}
+
 		let object;
 		try {
 			object = await env.R2_BUCKET.get(
@@ -420,9 +454,20 @@ export default {
 		}
 
 		const body = request.method === "HEAD" ? null : object.body;
-		return new Response(body, {
+		const response = new Response(body, {
 			status: isRangeResponse ? 206 : 200,
 			headers,
 		});
+
+		if (cacheKey && response.ok && typeof caches !== "undefined") {
+			try {
+				const clone = response.clone();
+				ctx.waitUntil(caches.default.put(cacheKey, clone));
+			} catch {
+				// 写缓存失败不影响本次响应
+			}
+		}
+
+		return response;
 	},
 };

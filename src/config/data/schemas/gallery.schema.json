@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/gallery.json",
+  "title": "相册配置",
+  "type": "object",
+  "required": ["albums"],
+  "properties": {
+    "albums": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "date": { "type": "string" },
+          "location": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "cover": { "type": "string" },
+          "password": { "type": "string" },
+          "passwordHint": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "columnWidth": { "type": "number" }
+  },
+  "additionalProperties": false
+}

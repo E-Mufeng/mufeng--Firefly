@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/imgbed.json",
+  "title": "图床配置",
+  "type": "object",
+  "required": ["images"],
+  "properties": {
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "src", "category"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "src": { "type": "string" },
+          "type": { "enum": ["image", "video"] },
+          "category": { "type": "string" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

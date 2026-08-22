@@ -1,0 +1,91 @@
+{
+  "links": [
+    {
+      "name": "主页",
+      "url": "/",
+      "icon": "material-symbols:home"
+    },
+    {
+      "name": "文章",
+      "url": "#",
+      "icon": "material-symbols:article",
+      "children": [
+        {
+          "name": "归档",
+          "url": "/archive/",
+          "icon": "material-symbols:archive"
+        },
+        {
+          "name": "分类",
+          "url": "/categories/",
+          "icon": "material-symbols:folder-open-rounded"
+        },
+        {
+          "name": "标签",
+          "url": "/tags/",
+          "icon": "material-symbols:tag-rounded"
+        }
+      ]
+    },
+    {
+      "name": "网站导航",
+      "url": "/website-nav/",
+      "icon": "material-symbols:bookmarks",
+      "childrenSource": "booknav"
+    },
+    {
+      "name": "动态",
+      "url": "#",
+      "icon": "material-symbols:forum-rounded",
+      "children": [
+        {
+          "name": "动态",
+          "url": "/dynamic/",
+          "icon": "material-symbols:forum-rounded",
+          "pageKey": "dynamic"
+        },
+        {
+          "name": "相册",
+          "url": "/gallery/",
+          "icon": "material-symbols:photo-library",
+          "pageKey": "gallery"
+        },
+        {
+          "name": "留言",
+          "url": "/guestbook/",
+          "icon": "material-symbols:chat",
+          "pageKey": "guestbook"
+        }
+      ]
+    },
+    {
+      "name": "记录",
+      "url": "/records/",
+      "icon": "material-symbols:edit-note-rounded"
+    },
+    {
+      "name": "关于",
+      "url": "#",
+      "icon": "material-symbols:info",
+      "children": [
+        {
+          "name": "关于我",
+          "url": "/about/",
+          "icon": "material-symbols:person"
+        },
+        {
+          "name": "友链",
+          "url": "/friends/",
+          "icon": "material-symbols:link-2-rounded",
+          "pageKey": "friends"
+        },
+        {
+          "name": "打赏",
+          "url": "/sponsor/",
+          "icon": "material-symbols:favorite",
+          "pageKey": "sponsor"
+        }
+      ]
+    }
+  ]
+}

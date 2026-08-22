@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://6261025.xyz/schemas/navbar.json",
+  "title": "导航栏配置",
+  "type": "object",
+  "required": ["links"],
+  "properties": {
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "url"],
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string" },
+          "external": { "type": "boolean" },
+          "icon": { "type": "string" },
+          "pageKey": { "type": "string" },
+          "childrenSource": { "enum": ["booknav"] },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "url"],
+              "properties": {
+                "name": { "type": "string" },
+                "url": { "type": "string" },
+                "external": { "type": "boolean" },
+                "icon": { "type": "string" },
+                "pageKey": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

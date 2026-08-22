@@ -5,34 +5,15 @@ import {
 	NavBarSearchMethod,
 } from "../types/navBarConfig";
 import { booknavConfig } from "./booknavConfig";
+import navbarData from "./data/navbar.json";
 
-// ============================================================================
-// 导航栏配置 - 根据顺序动态生成导航栏链接
-// NavBar Configuration - Dynamically generate navigation bar links based on order
-// ============================================================================
+type NavBarJsonLink = Omit<NavBarLink, "children"> & {
+	children?: NavBarLink[];
+	childrenSource?: "booknav";
+};
+
+// 导航栏配置：骨架数据存放在 src/config/data/navbar.json
 const getDynamicNavBarConfig = (): NavBarConfig => {
-	// 基础导航栏链接
-	const links: NavBarLink[] = [];
-
-	// 主页
-	links.push(LinkPresets.Home);
-
-	// 文章及其子菜单
-	links.push({
-		name: "文章",
-		url: "#",
-		icon: "material-symbols:article",
-		children: [
-			// 归档
-			LinkPresets.Archive,
-			// 分类
-			LinkPresets.Categories,
-			// 标签
-			LinkPresets.Tags,
-		],
-	});
-
-	// 网站导航及其分类子菜单
 	const booknavCategoryLinks: NavBarLink[] = booknavConfig
 		.filter((group) => group.enabled !== false)
 		.map((group) => ({
@@ -41,45 +22,15 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			icon: group.icon,
 		}));
 
-	links.push({
-		name: "网站导航",
-		url: "/website-nav/",
-		icon: "material-symbols:bookmarks",
-		children: booknavCategoryLinks,
-	});
-
-	// 动态及其子菜单
-	links.push({
-		name: "动态",
-		url: "#",
-		icon: "material-symbols:forum-rounded",
-		children: [
-			// 动态
-			LinkPresets.Dynamic,
-			// 相册
-			LinkPresets.Gallery,
-			// 留言
-			LinkPresets.Guestbook,
-		],
-	});
-
-	// 记录
-	links.push(LinkPresets.Records);
-
-	// 关于及其子菜单
-	links.push({
-		name: "关于",
-		url: "#",
-		icon: "material-symbols:info",
-		children: [
-			// 关于页面
-			LinkPresets.About,
-			// 友链
-			LinkPresets.Friends,
-			// 打赏
-			LinkPresets.Sponsor,
-		],
-	});
+	const links: NavBarLink[] = (navbarData.links as NavBarJsonLink[]).map(
+		(link) => {
+			if (link.childrenSource === "booknav") {
+				const { childrenSource: _source, ...base } = link;
+				return { ...base, children: booknavCategoryLinks };
+			}
+			return link;
+		},
+	);
 
 	return { links } as NavBarConfig;
 };

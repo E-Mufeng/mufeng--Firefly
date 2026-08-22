@@ -9,7 +9,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "check": "astro check",
+    "check": "tsx scripts/validate-config-json.ts && astro check",
+    "check:config": "tsx scripts/validate-config-json.ts",
+    "config:edit": "tsx scripts/config-editor.ts",
+    "workbench": "tsx scripts/config-editor.ts",
     "build": "npx tsx scripts/generate-lqips.ts && npx tsx scripts/generate-vndb-covers.ts && astro build && npx tsx scripts/prune-pio-assets.ts && npx tsx scripts/subset-fonts.ts && npx tsx scripts/minify-inline-scripts.ts && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
