@@ -12,6 +12,50 @@ const interval = 50;
 // 类型别名避免Fragment语法问题
 type PostEntry = CollectionEntry<"posts">;
 
+// 文章按发布时间分成 今天 / 昨天 / 前天 / 更早
+const DAY_MS = 1000 * 60 * 60 * 24;
+const startOfToday = new Date();
+startOfToday.setHours(0, 0, 0, 0);
+
+const getDayStart = (date: Date): Date =>
+	new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+const getRelativeDateLabel = (date: Date): string => {
+	const diffDays = Math.round(
+		(startOfToday.getTime() - getDayStart(date).getTime()) / DAY_MS,
+	);
+	if (diffDays <= 0) return "今天";
+	if (diffDays === 1) return "昨天";
+	if (diffDays === 2) return "前天";
+	return "更早";
+};
+
+const groupMap = new Map<string, PostEntry[]>();
+for (const entry of page.data as PostEntry[]) {
+	const label = getRelativeDateLabel(entry.data.published);
+	const list = groupMap.get(label);
+	if (list) {
+		list.push(entry);
+	} else {
+		groupMap.set(label, [entry]);
+	}
+}
+
+let cardIndex = 0;
+const postListItems = ["今天", "昨天", "前天", "更早"]
+	.filter((label) => groupMap.has(label))
+	.flatMap((label) => {
+		const posts = groupMap.get(label) || [];
+		return [
+			{ type: "header" as const, label, count: posts.length },
+			...posts.map((entry) => ({
+				type: "card" as const,
+				entry,
+				index: cardIndex++,
+			})),
+		];
+	});
+
 const masonryEnabled = siteConfig.postListLayout.grid.masonry;
 const columnWidth = siteConfig.postListLayout.grid.columnWidth || 280;
 
@@ -39,25 +83,32 @@ const coverPositionClass =
   style={`--post-card-min-width: ${columnWidth}px;`}
 >
   {
-    page.data.map((entry: PostEntry, index: number) => (
-      <PostCard
-        entry={entry}
-        title={entry.data.title}
-        tags={entry.data.tags}
-        category={entry.data.category}
-        published={entry.data.published}
-        updated={entry.data.updated}
-        url={getPostUrlBySlug(entry.id)}
-        image={entry.data.image}
-        description={entry.data.description}
-        draft={entry.data.draft}
-        pinned={entry.data.pinned}
-        password={!!entry.data.password}
-        loading={index < 2 ? "eager" : "lazy"}
-        class:list="onload-animation post-card-item"
-        style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
-      />
-    ))
+    postListItems.map((item) =>
+      item.type === "header" ? (
+        <div class="post-date-group" data-post-date-group={item.label}>
+          <span>{item.label}</span>
+          {item.count > 1 && <span class="post-date-count">{item.count}</span>}
+        </div>
+      ) : (
+        <PostCard
+          entry={item.entry}
+          title={item.entry.data.title}
+          tags={item.entry.data.tags}
+          category={item.entry.data.category}
+          published={item.entry.data.published}
+          updated={item.entry.data.updated}
+          url={getPostUrlBySlug(item.entry.id)}
+          image={item.entry.data.image}
+          description={item.entry.data.description}
+          draft={item.entry.data.draft}
+          pinned={item.entry.data.pinned}
+          password={!!item.entry.data.password}
+          loading={item.index < 2 ? "eager" : "lazy"}
+          class:list="onload-animation post-card-item"
+          style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
+        />
+      ),
+    )
   }
 </div>
 
@@ -360,6 +411,29 @@ const coverPositionClass =
 </style>
 
 <style>
+  .post-date-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    scroll-margin-top: 5.5rem;
+  }
+
+  .post-date-count {
+    padding: 0 0.5rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+  }
+
+  #post-list-container.grid-mode .post-date-group {
+    grid-column: 1 / -1;
+  }
+
   /* 布局切换动画 */
   #post-list-container {
     /* 限制过渡属性为 opacity 和 transform，避免响应父元素位置变化 */

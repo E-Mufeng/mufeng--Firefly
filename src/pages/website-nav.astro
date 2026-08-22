@@ -311,6 +311,26 @@ const description =
     }
   </script>
 
+  <script is:inline>
+    function scrollToBooknavHash() {
+      const hash = window.location.hash;
+      if (!hash || hash.length < 2) return;
+      const target = document.querySelector(`[data-group-id="${CSS.escape(hash.slice(1))}"]`);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", scrollToBooknavHash);
+    } else {
+      scrollToBooknavHash();
+    }
+    document.addEventListener("astro:page-load", scrollToBooknavHash);
+    document.addEventListener("swup:contentReplaced", scrollToBooknavHash);
+    window.addEventListener("hashchange", scrollToBooknavHash);
+  </script>
+
   <style is:global>
     /* 自定义元素默认是 inline，需要撑成块级容器 */
     booknav-list {

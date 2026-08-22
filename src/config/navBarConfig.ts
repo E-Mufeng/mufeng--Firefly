@@ -4,6 +4,7 @@ import {
 	type NavBarSearchConfig,
 	NavBarSearchMethod,
 } from "../types/navBarConfig";
+import { booknavConfig } from "./booknavConfig";
 
 // ============================================================================
 // 导航栏配置 - 根据顺序动态生成导航栏链接
@@ -31,29 +32,20 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 网站导航及其图床入口
+	// 网站导航及其分类子菜单
+	const booknavCategoryLinks: NavBarLink[] = booknavConfig
+		.filter((group) => group.enabled !== false)
+		.map((group) => ({
+			name: group.name,
+			url: `/website-nav/#${group.id}`,
+			icon: group.icon,
+		}));
+
 	links.push({
 		name: "网站导航",
-		url: "#",
+		url: "/website-nav/",
 		icon: "material-symbols:bookmarks",
-		children: [
-			{
-				name: "网站导航",
-				url: "/website-nav/",
-				icon: "material-symbols:bookmarks",
-				pageKey: "booknav",
-			},
-			{
-				name: "五条悟图床",
-				url: "/imgbed/",
-				icon: "material-symbols:image-rounded",
-			},
-			{
-				name: "高级图床",
-				url: "/imgbed-pro/",
-				icon: "material-symbols:auto-awesome-rounded",
-			},
-		],
+		children: booknavCategoryLinks,
 	});
 
 	// 动态及其子菜单

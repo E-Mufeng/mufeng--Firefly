@@ -15,10 +15,6 @@
 [![Forks](https://img.shields.io/github/forks/E-Mufeng/mufeng--Firefly?style=social)](https://github.com/E-Mufeng/mufeng--Firefly/network/members)
 [![Issues](https://img.shields.io/github/issues/E-Mufeng/mufeng--Firefly)](https://github.com/E-Mufeng/mufeng--Firefly/issues)
 > 
-> [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
->
-> **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
-> 
 > ![GitHub License](https://img.shields.io/github/license/E-Mufeng/mufeng--Firefly)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/E-Mufeng/mufeng--Firefly)
 

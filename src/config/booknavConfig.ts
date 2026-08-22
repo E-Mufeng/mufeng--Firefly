@@ -6,7 +6,7 @@ export const booknavPageConfig: BooknavPageConfig = {
 	title: "网站导航",
 
 	// 页面描述文本，如果留空则使用 i18n 中的翻译
-	description: "收藏一些好用的网站，按分类整理",
+	description: "一个按分类整理的工具箱，收藏好用的网站与在线工具",
 
 	// favicon 自动获取配置
 	favicon: {
@@ -106,9 +106,9 @@ export const booknavConfig: BooknavGroup[] = [
 	},
 	{
 		id: "tools",
-		name: "工具",
+		name: "工具箱",
 		icon: "material-symbols:build-outline-rounded",
-		desc: "顺手的在线小工具",
+		desc: "顺手的在线工具箱",
 		weight: 80,
 		items: [
 			{
@@ -132,25 +132,68 @@ export const booknavConfig: BooknavGroup[] = [
 		],
 	},
 	{
-		id: "imgbed",
-		name: "图床",
-		icon: "material-symbols:photo-library",
-		desc: "五条悟主题素材图床",
+		id: "novel",
+		name: "小说",
+		icon: "material-symbols:menu-book-rounded",
+		desc: "在线阅读与小说网站",
 		weight: 75,
 		items: [
 			{
-				title: "五条悟图床",
-				url: "/imgbed/",
-				desc: "对标博客风格的素材图床",
-				icon: "material-symbols:image-rounded",
+				title: "起点中文网",
+				url: "https://www.qidian.com",
+				desc: "网络文学与原创小说",
 				weight: 10,
 			},
 			{
-				title: "高级图床",
-				url: "/imgbed-pro/",
-				desc: "独立的高质量图床系统",
-				icon: "material-symbols:auto-awesome-rounded",
+				title: "番茄小说",
+				url: "https://fanqienovel.com",
+				desc: "免费小说阅读平台",
 				weight: 9,
+			},
+			{
+				title: "晋江文学城",
+				url: "https://www.jjwxc.net",
+				desc: "女性向原创文学网站",
+				weight: 8,
+			},
+			{
+				title: "微信读书",
+				url: "https://weread.qq.com",
+				desc: "图书与出版物阅读",
+				weight: 7,
+			},
+		],
+	},
+	{
+		id: "music",
+		name: "音乐",
+		icon: "material-symbols:music-note-rounded",
+		desc: "在线音乐与音频网站",
+		weight: 75,
+		items: [
+			{
+				title: "QQ音乐",
+				url: "https://y.qq.com",
+				desc: "QQ音乐官方站点",
+				weight: 10,
+			},
+			{
+				title: "网易云音乐",
+				url: "https://music.163.com",
+				desc: "网易云音乐官方站点",
+				weight: 9,
+			},
+			{
+				title: "酷狗音乐",
+				url: "https://www.kugou.com",
+				desc: "酷狗音乐官方站点",
+				weight: 8,
+			},
+			{
+				title: "酷我音乐",
+				url: "https://www.kuwo.cn",
+				desc: "酷我音乐官方站点",
+				weight: 7,
 			},
 		],
 	},

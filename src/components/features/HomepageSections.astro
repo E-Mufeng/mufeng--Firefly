@@ -1,27 +1,6 @@
 ---
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { announcementConfig } from "@/config";
-
-const posts = await getCollection("posts", ({ data }) => !data.draft);
-const dynamics = await getCollection("dynamic");
-const categories = new Set(
-	posts
-		.map((post) => post.data.category)
-		.filter((category): category is string => Boolean(category)),
-);
-const tags = new Set(posts.flatMap((post) => post.data.tags || []));
-
-const skills = [
-	"Astro",
-	"Svelte",
-	"TypeScript",
-	"Tailwind CSS",
-	"Cloudflare",
-	"AI 工具",
-	"自动化",
-	"静态博客",
-];
 
 const quickLinks = [
 	{
@@ -36,18 +15,6 @@ const quickLinks = [
 		icon: "material-symbols:edit-note-rounded",
 		desc: "动态、归档与标签入口",
 	},
-	{
-		name: "五条悟图床",
-		url: "/imgbed/",
-		icon: "material-symbols:image-rounded",
-		desc: "素材图床",
-	},
-	{
-		name: "高级图床",
-		url: "/imgbed-pro/",
-		icon: "material-symbols:auto-awesome-rounded",
-		desc: "独立图床系统",
-	},
 ];
 ---
 
@@ -58,58 +25,13 @@ const quickLinks = [
 				<Icon is:inline name="material-symbols:campaign-rounded" class="text-(--primary) text-lg shrink-0" />
 				<span class="text-xs font-bold tracking-wide uppercase text-(--content-meta)">公告</span>
 			</div>
-			<div class="overflow-hidden py-2.5">
-				<div class="announcement-marquee whitespace-nowrap">
-					{Array.from({ length: 4 }).map(() => (
-						<span class="mx-8 text-sm text-neutral-700 dark:text-neutral-200">{announcementConfig.content}</span>
-					))}
-				</div>
+			<div class="px-4 py-3">
+				<p class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-200">
+					{announcementConfig.content}
+				</p>
 			</div>
 		</section>
 	)}
-
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-		<section class="card-base rounded-(--radius-large) p-6">
-			<div class="flex items-center gap-3 mb-4">
-				<div class="h-9 w-9 rounded-xl bg-(--primary)/10 flex items-center justify-center text-(--primary)">
-					<Icon is:inline name="material-symbols:monitoring-rounded" class="text-xl" />
-				</div>
-				<h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100">站点数据</h2>
-			</div>
-			<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-				<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
-					<div class="text-2xl font-black text-(--primary)">{posts.length}</div>
-					<div class="text-xs text-neutral-500 dark:text-neutral-400">文章</div>
-				</div>
-				<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
-					<div class="text-2xl font-black text-(--primary)">{categories.size}</div>
-					<div class="text-xs text-neutral-500 dark:text-neutral-400">分类</div>
-				</div>
-				<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
-					<div class="text-2xl font-black text-(--primary)">{tags.size}</div>
-					<div class="text-xs text-neutral-500 dark:text-neutral-400">标签</div>
-				</div>
-				<div class="rounded-xl bg-black/5 dark:bg-white/5 px-4 py-3">
-					<div class="text-2xl font-black text-(--primary)">{dynamics.length}</div>
-					<div class="text-xs text-neutral-500 dark:text-neutral-400">动态</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="card-base rounded-(--radius-large) p-6">
-			<div class="flex items-center gap-3 mb-4">
-				<div class="h-9 w-9 rounded-xl bg-(--primary)/10 flex items-center justify-center text-(--primary)">
-					<Icon is:inline name="material-symbols:auto-awesome-rounded" class="text-xl" />
-				</div>
-				<h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100">技能与工具</h2>
-			</div>
-			<div class="flex flex-wrap gap-2">
-				{skills.map((skill) => (
-					<span class="px-3 py-1.5 rounded-full bg-(--primary)/10 text-(--primary) text-sm font-medium">{skill}</span>
-				))}
-			</div>
-		</section>
-	</div>
 
 	<section class="card-base rounded-(--radius-large) p-6">
 		<div class="flex items-center gap-3 mb-4">
@@ -138,20 +60,6 @@ const quickLinks = [
 </div>
 
 <style>
-	@keyframes marquee {
-		from {
-			transform: translateX(0);
-		}
-		to {
-			transform: translateX(-50%);
-		}
-	}
-
-	.announcement-marquee {
-		display: inline-flex;
-		animation: marquee 24s linear infinite;
-	}
-
 	.homepage-sections {
 		scroll-margin-top: 5.5rem;
 	}
