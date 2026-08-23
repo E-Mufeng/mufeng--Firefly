@@ -16,6 +16,7 @@
           "external": { "type": "boolean" },
           "icon": { "type": "string" },
           "pageKey": { "type": "string" },
+          "enabled": { "type": "boolean" },
           "childrenSource": { "enum": ["booknav"] },
           "children": {
             "type": "array",
@@ -27,7 +28,8 @@
                 "url": { "type": "string" },
                 "external": { "type": "boolean" },
                 "icon": { "type": "string" },
-                "pageKey": { "type": "string" }
+                "pageKey": { "type": "string" },
+                "enabled": { "type": "boolean" }
               },
               "additionalProperties": false
             }

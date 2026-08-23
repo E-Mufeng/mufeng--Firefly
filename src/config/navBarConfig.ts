@@ -22,15 +22,18 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			icon: group.icon,
 		}));
 
-	const links: NavBarLink[] = (navbarData.links as NavBarJsonLink[]).map(
-		(link) => {
+	const links: NavBarLink[] = (navbarData.links as NavBarJsonLink[])
+		.filter((link) => link.enabled !== false)
+		.map((link) => {
 			if (link.childrenSource === "booknav") {
 				const { childrenSource: _source, ...base } = link;
 				return { ...base, children: booknavCategoryLinks };
 			}
-			return link;
-		},
-	);
+			return {
+				...link,
+				children: link.children?.filter((child) => child.enabled !== false),
+			};
+		});
 
 	return { links } as NavBarConfig;
 };
