@@ -1,0 +1,110 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="角色调试 | Hero Debug" description="开发用：满屏查看 3D 角色各角度" noRobot>
+  <div id="hero-debug-bg" style="position:fixed;inset:0;background:radial-gradient(ellipse at 60% 45%, #0e1424 0%, #04050a 75%);z-index:0"></div>
+  <div id="hero-3d-layer" class="hero-3d-layer" style="position:fixed;inset:0;width:100%;height:100%;z-index:1">
+    <canvas id="hero-3d-canvas" style="width:100%;height:100%;display:block"></canvas>
+    <img id="hero-3d-fallback" alt="" style="display:none" />
+    <div id="hero-3d-toast" class="hero-toast" style="display:none"></div>
+  </div>
+
+  <!-- 控制条（开发用） -->
+  <div id="hd-bar" style="position:fixed;top:14px;left:14px;z-index:50;display:flex;gap:6px;background:rgba(8,10,20,.7);border:1px solid rgba(120,140,200,.25);padding:8px 10px;border-radius:10px;backdrop-filter:blur(8px);color:#cbd6f0;font:12px/1 ui-sans-serif,system-ui">
+    <b style="color:#8eb6ff">HERO DEBUG</b>
+    <button data-cam="front" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">正面</button>
+    <button data-cam="left" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">左侧</button>
+    <button data-cam="right" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">右侧</button>
+    <button data-cam="back" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">后脑</button>
+    <button data-cam="close" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">特写</button>
+    <button data-cam="face" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">脸</button>
+    <button data-cam="body" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">全身</button>
+    <span style="margin:0 6px;color:#445">|</span>
+    <button data-skill="blue" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b3a66;cursor:pointer;color:#9ed0ff">苍</button>
+    <button data-skill="red" style="all:unset;padding:4px 8px;border-radius:6px;background:#5b1f1f;cursor:pointer;color:#ff9b9b">赫</button>
+    <button data-skill="purple" style="all:unset;padding:4px 8px;border-radius:6px;background:#3b1f5b;cursor:pointer;color:#d6a9ff">茈</button>
+    <span style="margin:0 6px;color:#445">|</span>
+    <button data-ch="0" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">五条悟</button>
+    <button data-ch="1" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">伏黑惠</button>
+    <button data-ch="2" style="all:unset;padding:4px 8px;border-radius:6px;background:#1b2240;cursor:pointer">野蔷薇</button>
+  </div>
+
+  <style is:global>
+    .hero-toast {
+      position: absolute;
+      bottom: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 22px;
+      background: rgba(8, 10, 22, 0.75);
+      border: 1px solid rgba(140, 170, 230, 0.3);
+      border-radius: 14px;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      color: #e8efff;
+      font: 14px/1.5 ui-serif, "Hiragino Mincho ProN", "Yu Mincho", "Source Han Serif", serif;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+    .hero-toast.show { opacity: 1; }
+    .hero-toast-main { font-size: 22px; font-weight: 700; color: #d8eaff; margin-bottom: 4px; }
+    .hero-toast-sub { font-size: 12px; color: #8aa0c8; }
+  </style>
+
+  <script>
+    import("@/utils/hero-character-scene").then((m) => {
+      const layer = document.getElementById("hero-3d-layer")!;
+      const c = m.mountHero3D(layer);
+      (window as any).__cast = c.castSkill;
+      (window as any).__switch = c.switchCharacter;
+      const params = new URLSearchParams(location.search);
+      const initialCam = params.get("cam") || "close";
+      setTimeout(() => {
+        const h = (window as any).__hero;
+        if (!h) return;
+        c.setAutoRotate(false);
+        // 头部世界坐标：角色 group.x = 1.34（桌面），HEAD_Y = 2.52
+        const HX = 1.34;
+        const HY = 2.46;
+        // [camX, camY, camZ, lookX, lookY, lookZ, 角色Y旋转]
+        const target: Record<string, [number, number, number, number, number, number, number]> = {
+          front: [HX, HY, 2.35, HX, HY - 0.06, 0, -0.22], // 与首页同角度
+          close: [HX, HY, 1.35, HX, HY - 0.03, 0, -0.22],
+          face: [HX + 0.02, HY, 0.95, HX, HY - 0.02, 0, -0.18],
+          left: [-1.55, 2.5, 0.55, HX, HY - 0.02, 0, 0],
+          right: [2.95, 2.5, 0.55, HX, HY - 0.02, 0, 0],
+          back: [HX, 2.5, -2.1, HX, HY - 0.02, 0, 0],
+          body: [HX, 1.6, 2.6, HX, 1.5, 0, -0.22],
+        };
+        const apply = (key: string) => {
+          const t = target[key] || target.front;
+          h.setCamBase(t[0], t[1], t[2]);
+          h.setLookAt(t[3], t[4], t[5]);
+          h.setCharRotation(t[6]);
+        };
+        apply(initialCam);
+        const ch = Number(params.get("ch") || "0");
+        if (ch > 0) setTimeout(() => c.switchCharacter(ch), 200);
+        document.querySelectorAll("[data-cam]").forEach((btn) => {
+          btn.addEventListener("click", () => apply((btn as HTMLElement).dataset.cam!));
+        });
+        document.querySelectorAll("[data-skill]").forEach((btn) => {
+          btn.addEventListener("click", () => c.castSkill((btn as HTMLElement).dataset.skill!));
+        });
+        document.querySelectorAll("[data-ch]").forEach((btn) => {
+          btn.addEventListener("click", () => c.switchCharacter(Number((btn as HTMLElement).dataset.ch!)));
+        });
+        // URL ?auto=blue|red|purple 循环施法（方便截图）
+        const auto = params.get("auto");
+        if (auto === "blue" || auto === "red" || auto === "purple") {
+          const fire = () => c.castSkill(auto);
+          setTimeout(fire, 400);
+          setInterval(fire, 1100);
+        }
+      }, 800);
+    });
+  </script>
+</Layout>

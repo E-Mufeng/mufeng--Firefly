@@ -37,6 +37,8 @@ export interface CharacterConfig {
 	hairEmissive: number;
 	/** 肤色 */
 	skinColor: number;
+	/** 瞳色（六眼/角色眼色，MeshBasicMaterial 高亮不受光） */
+	eyeColor: number;
 	/** 制服主色 */
 	uniformColor: number;
 	/** 是否戴绷带眼罩（五条悟标志性） */
@@ -66,10 +68,11 @@ export const CHARACTERS: CharacterConfig[] = [
 		title: "最強の呪術師",
 		hairColor: 0xeef2f8,
 		hairEmissive: 0x8fb6ff,
-		skinColor: 0xf3d9c0,
-		uniformColor: 0x0e0f15,
-		blindfold: true,
-		sixEyes: false,
+		skinColor: 0xf6e3cc,
+		eyeColor: 0x4fc3ff,
+		uniformColor: 0x3a4670,
+		blindfold: false,
+		sixEyes: true,
 		auraColor: 0x5b9dff,
 		accentColor: 0x9ec5ff,
 		pose: "signature",
@@ -91,7 +94,8 @@ export const CHARACTERS: CharacterConfig[] = [
 		hairColor: 0x161a22,
 		hairEmissive: 0x000000,
 		skinColor: 0xf0d3b8,
-		uniformColor: 0x171a22,
+		eyeColor: 0x2f6b4f,
+		uniformColor: 0x2a3040,
 		blindfold: false,
 		sixEyes: false,
 		auraColor: 0x9b6bff,
@@ -110,7 +114,8 @@ export const CHARACTERS: CharacterConfig[] = [
 		hairColor: 0xb5562e,
 		hairEmissive: 0x000000,
 		skinColor: 0xf3d6bd,
-		uniformColor: 0x20202a,
+		eyeColor: 0x8a5a2a,
+		uniformColor: 0x33303f,
 		blindfold: false,
 		sixEyes: false,
 		auraColor: 0xff5b7a,
