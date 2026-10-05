@@ -25,7 +25,8 @@
     "preinstall": "npx only-allow pnpm",
     "lqips": "npx tsx scripts/generate-lqips.ts",
     "generate:models": "npx tsx scripts/generate-models.ts",
-    "generate:posters": "npx tsx scripts/generate-posters.ts"
+    "generate:posters": "npx tsx scripts/generate-posters.ts",
+    "optimize:vrm": "node scripts/optimize-vrm.cjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -50,6 +51,7 @@
     "@iconify/utils": "^3.1.4",
     "@mermanjs/web": "0.8.0-alpha.3",
     "@napi-rs/wasm-runtime": "^1.2.2",
+    "@pixiv/three-vrm": "^3.5.5",
     "@swup/astro": "^1.8.0",
     "@tailwindcss/typography": "^0.5.20",
     "@types/hast": "^3.0.5",

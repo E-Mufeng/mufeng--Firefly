@@ -31,6 +31,11 @@ export interface CharacterConfig {
 	name: string;
 	/** 名字下方的小标题 */
 	title: string;
+	/**
+	 * VRM 模型路径（public 下）。
+	 * 换角色 = 把 .vrm 放进 public/models/vrm/ 再改这里，其它代码不用动。
+	 */
+	vrm: string;
 	/** 发色 */
 	hairColor: number;
 	/** 头发自发光（六眼/咒力微光），0 表示无 */
@@ -66,6 +71,7 @@ export const CHARACTERS: CharacterConfig[] = [
 		id: "gojo",
 		name: "五条悟",
 		title: "最強の呪術師",
+		vrm: "/models/vrm/AvatarSample_C.vrm",
 		hairColor: 0xeef2f8,
 		hairEmissive: 0x8fb6ff,
 		skinColor: 0xf6e3cc,
@@ -91,6 +97,7 @@ export const CHARACTERS: CharacterConfig[] = [
 		id: "megumi",
 		name: "伏黑惠",
 		title: "禪院の御曹司",
+		vrm: "/models/vrm/AvatarSample_B.vrm",
 		hairColor: 0x161a22,
 		hairEmissive: 0x000000,
 		skinColor: 0xf0d3b8,
@@ -111,6 +118,7 @@ export const CHARACTERS: CharacterConfig[] = [
 		id: "nobara",
 		name: "钉崎野蔷薇",
 		title: "呪術高専 1 年",
+		vrm: "/models/vrm/AvatarSample_A.vrm",
 		hairColor: 0xb5562e,
 		hairEmissive: 0x000000,
 		skinColor: 0xf3d6bd,
