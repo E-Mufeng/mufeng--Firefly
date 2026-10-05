@@ -64,24 +64,24 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 横幅壁纸和全屏壁纸共享配置
 	common: {
 		// 壁纸遮罩暗度，让横幅文字显示更清晰，0-1之间，值越大越暗
-		dimOpacity: 0.2,
+		dimOpacity: 0.25,
 		// 多视频播放模式："order" 顺序循环，"random" 随机切换（仅当 playerUrl 为数组时生效）
 		playerMode: "random",
 		// 主页横幅文字
 		homeText: {
 			// 是否启用主页横幅文字
 			enable: true,
-			// 主页横幅主标题
-			title: "自建一隅小屋，听风，沐风，安于此间！",
+			// 主页横幅主标题（五条悟经典台词）
+			title: "俺は最強だ。",
 			// 主页横幅主标题字体大小
 			titleSize: "3.5rem",
-			// 主页横幅副标题
+			// 主页横幅副标题（五条悟口头禅，打字机循环）
 			subtitle: [
-				"我与我周旋久，宁做我",
-				"年少时不可得之物终将困其一生",
-				"饮陈诗句豪满天，雨衬佳人仙更羡",
-				"借长风释怀，与相逢",
-				"keep your spirit free",
+				"正しさとは、強者が決めるものだ。",
+				"無限を、理解したか？",
+				"やっほー、五条です！",
+				"弱者には救いを、強者には制裁を。",
+				"この世で一番、お前を守るのはオレだ。",
 			],
 			// 主页横幅副标题字体大小
 			typewriter: {
@@ -135,6 +135,13 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			transitionEffect: "zoom",
 		},
 	},
+	// 首页实时 3D 角色场景（仅全屏/首页生效；非首页仍是普通图片壁纸）
+	hero3D: {
+		enabled: true,
+		// WebGL 不可用 / 弱性能降级时显示的海报图
+		fallbackImage: "assets/images/DesktopWallpaper/mufeng-gojo.png",
+	},
+
 	// Banner模式特有配置
 	banner: {
 		// 图片位置
