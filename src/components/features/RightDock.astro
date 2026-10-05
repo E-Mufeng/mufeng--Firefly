@@ -24,6 +24,9 @@ import { Icon } from "astro-icon/components";
 		<button type="button" data-dock-action="music" title="音乐" class="dock-item">
 			<Icon is:inline name="material-symbols:music-note-rounded" />
 		</button>
+		<button type="button" data-dock-action="sound" title="音效" class="dock-item">
+			<Icon is:inline name="material-symbols:graphic-eq-rounded" />
+		</button>
 		<a href="/search/" title="搜索" class="dock-item">
 			<Icon is:inline name="material-symbols:search-rounded" />
 		</a>
@@ -112,6 +115,12 @@ import { Icon } from "astro-icon/components";
 			if (action === "music") {
 				var musicSwitch = document.getElementById("music-player-switch");
 				if (musicSwitch) musicSwitch.click();
+				return;
+			}
+
+			if (action === "sound") {
+				var sfx = window.fireflySound;
+				if (sfx && typeof sfx.toggle === "function") sfx.toggle();
 				return;
 			}
 

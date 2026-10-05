@@ -1,0 +1,129 @@
+---
+/**
+ * SoundEffects.astro — Web Audio 程序化音效
+ * 默认关闭，由 RightDock 的「音效」按钮或设置面板开启。
+ * 懒初始化 AudioContext（首个用户手势后才 resume，符合浏览器自动播放策略）。
+ */
+import { soundEffectsConfig } from "@/config/soundEffectsConfig";
+---
+
+<script>
+	import { soundEffectsConfig } from "@/config/soundEffectsConfig";
+
+	function initSoundEffects(): void {
+		if (window.soundEffectsInitialized) return;
+		window.soundEffectsInitialized = true;
+
+		const STORAGE_KEY = "soundEffectsEnabled";
+		const cfg = soundEffectsConfig;
+		let enabled = localStorage.getItem(STORAGE_KEY) === "true";
+
+		let ctx: AudioContext | null = null;
+		let master: GainNode | null = null;
+		let lastHover = 0;
+
+		function ensureCtx(): AudioContext | null {
+			if (ctx) {
+				if (ctx.state === "suspended") void ctx.resume();
+				return ctx;
+			}
+			const AC =
+				window.AudioContext ||
+				(window as unknown as { webkitAudioContext?: typeof AudioContext })
+					.webkitAudioContext;
+			if (!AC) return null;
+			ctx = new AC();
+			master = ctx.createGain();
+			master.gain.value = cfg.volume;
+			master.connect(ctx.destination);
+			return ctx;
+		}
+
+		function blip(freq: number, type: OscillatorType, dur: number, gain = 0.5): void {
+			if (!enabled) return;
+			const c = ensureCtx();
+			if (!c || !master) return;
+			const t = c.currentTime;
+			const osc = c.createOscillator();
+			const g = c.createGain();
+			osc.type = type;
+			osc.frequency.setValueAtTime(freq, t);
+			g.gain.setValueAtTime(0.0001, t);
+			g.gain.exponentialRampToValueAtTime(Math.max(0.0002, gain), t + 0.01);
+			g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+			osc.connect(g).connect(master);
+			osc.start(t);
+			osc.stop(t + dur + 0.03);
+		}
+
+		function sweep(freq: number, type: OscillatorType, dur: number, gain = 0.3): void {
+			if (!enabled) return;
+			const c = ensureCtx();
+			if (!c || !master) return;
+			const t = c.currentTime;
+			const osc = c.createOscillator();
+			const g = c.createGain();
+			osc.type = type;
+			osc.frequency.setValueAtTime(freq, t);
+			osc.frequency.exponentialRampToValueAtTime(freq * 2, t + dur);
+			g.gain.setValueAtTime(0.0001, t);
+			g.gain.exponentialRampToValueAtTime(Math.max(0.0002, gain), t + 0.02);
+			g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+			osc.connect(g).connect(master);
+			osc.start(t);
+			osc.stop(t + dur + 0.03);
+		}
+
+		function onHover(e: Event): void {
+			if (!cfg.hover.enabled) return;
+			const el = (e.target as HTMLElement | null)?.closest(
+				"a,button,[data-dock-action],[data-sound-hover]",
+			);
+			if (!el) return;
+			const now = performance.now();
+			if (now - lastHover < 55) return;
+			lastHover = now;
+			blip(cfg.hover.freq, cfg.hover.type, cfg.hover.duration, 0.22);
+		}
+
+		function onClick(): void {
+			if (!cfg.click.enabled) return;
+			blip(cfg.click.freq, cfg.click.type, cfg.click.duration, 0.32);
+		}
+
+		function onNavigate(): void {
+			if (!cfg.navigate.enabled) return;
+			sweep(cfg.navigate.freq, cfg.navigate.type, cfg.navigate.duration, 0.28);
+		}
+
+		document.addEventListener("mouseover", onHover, { passive: true });
+		document.addEventListener("click", onClick, { passive: true });
+
+		// 页面切换上扫音：注册 visit:start（swup 就绪则直接注册）
+		const regNav = (): void => {
+			window.swup?.hooks?.on?.("visit:start", onNavigate);
+		};
+		if (window?.swup?.hooks) regNav();
+		else document.addEventListener("swup:enable", regNav, { once: true });
+
+		// 对外开关 API
+		(window as unknown as { fireflySound: unknown }).fireflySound = {
+			isEnabled: () => enabled,
+			setEnabled: (v: boolean) => {
+				enabled = v;
+				localStorage.setItem(STORAGE_KEY, v ? "true" : "false");
+				if (v) {
+					ensureCtx();
+					blip(cfg.click.freq, cfg.click.type, cfg.click.duration, 0.4);
+				}
+			},
+			toggle: () => {
+				const api = (window as unknown as { fireflySound: { setEnabled: (v: boolean) => void; isEnabled: () => boolean } }).fireflySound;
+				api.setEnabled(!api.isEnabled());
+				return api.isEnabled();
+			},
+		};
+	}
+
+	initSoundEffects();
+</script>

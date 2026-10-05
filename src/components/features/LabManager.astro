@@ -1,0 +1,247 @@
+---
+import { Icon } from "astro-icon/components";
+import { LAB_MODELS } from "@/utils/lab-scene";
+---
+
+<!-- 实验室沉浸式舞台：WebGL 画布 + 浮动控制 UI -->
+<div id="lab-stage">
+	<div id="lab-canvas"></div>
+
+	<!-- 标题 -->
+	<div class="lab-title">
+		<Icon is:inline name="material-symbols:view-in-ar-rounded" class="lab-title-icon" />
+		<div>
+			<div class="lab-title-main">3D 实验室</div>
+			<div class="lab-title-sub">程序化生成的真实 .glb 模型 · 拖拽旋转 / 滚轮缩放</div>
+		</div>
+	</div>
+
+	<!-- 返回 -->
+	<a href="/" class="lab-back" title="返回首页">
+		<Icon is:inline name="material-symbols:arrow-back-rounded" />
+		<span>首页</span>
+	</a>
+
+	<!-- 控制栏 -->
+	<div class="lab-ui">
+		<div class="lab-chips">
+			{
+				LAB_MODELS.map((m, i) => (
+					<button
+						type="button"
+						class:list={["lab-chip", { active: i === 0 }]}
+						data-lab-model={i}
+					>
+						{m.label}
+					</button>
+				))
+			}
+		</div>
+		<div class="lab-toggles">
+			<button type="button" class="lab-toggle active" data-lab-autorotate="on" title="自动旋转">
+				<Icon is:inline name="material-symbols:autorenew-rounded" />
+				<span>旋转</span>
+			</button>
+			<button type="button" class="lab-toggle" data-lab-wireframe="off" title="线框">
+				<Icon is:inline name="material-symbols:grid-3x3-rounded" />
+				<span>线框</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	import("@/utils/lab-scene")
+		.then(({ createLab, isLabPath }) => {
+			const lab = createLab();
+
+			// 首次进入（模块加载完成时已在 lab 页）
+			if (isLabPath()) lab.mount();
+
+			// swup 钩子：离开实验室前销毁 WebGL，回到实验室时重建
+			const regSwup = (): void => {
+				window.swup?.hooks?.on("visit:start", () => {
+					if (isLabPath()) lab.unmount();
+				});
+				window.swup?.hooks?.on("page:view", () => {
+					if (isLabPath()) lab.mount();
+				});
+			};
+			if (window?.swup?.hooks) regSwup();
+			else document.addEventListener("swup:enable", regSwup, { once: true });
+
+			// 控制 UI（事件委托，DOM 被 Swup 替换后仍生效）
+			document.addEventListener("click", (e: Event) => {
+				const tgt = e.target as HTMLElement;
+				const modelBtn = tgt.closest("[data-lab-model]");
+				if (modelBtn) {
+					const i = Number((modelBtn as HTMLElement).dataset.labModel);
+					lab.switchModel(i);
+					document
+						.querySelectorAll("[data-lab-model]")
+						.forEach((el) => el.classList.remove("active"));
+					modelBtn.classList.add("active");
+					return;
+				}
+				const arBtn = tgt.closest("[data-lab-autorotate]");
+				if (arBtn) {
+					const on = (arBtn as HTMLElement).dataset.labAutorotate !== "on";
+					lab.setAutoRotate(on);
+					(arBtn as HTMLElement).dataset.labAutorotate = on ? "on" : "off";
+					arBtn.classList.toggle("active", on);
+					return;
+				}
+				const wfBtn = tgt.closest("[data-lab-wireframe]");
+				if (wfBtn) {
+					const on = (wfBtn as HTMLElement).dataset.labWireframe !== "on";
+					lab.setWireframe(on);
+					(wfBtn as HTMLElement).dataset.labWireframe = on ? "on" : "off";
+					wfBtn.classList.toggle("active", on);
+					return;
+				}
+			});
+		})
+		.catch((err) => console.error("[lab] 场景加载失败", err));
+</script>
+
+<style>
+	#lab-stage {
+		position: fixed;
+		inset: 0;
+		z-index: 40;
+		overflow: hidden;
+		background:
+			radial-gradient(120% 120% at 50% 0%, #15162a 0%, #0a0a12 55%, #050509 100%);
+	}
+
+	#lab-canvas {
+		position: absolute;
+		inset: 0;
+	}
+	#lab-canvas canvas {
+		display: block;
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	.lab-title {
+		position: fixed;
+		top: 1.2rem;
+		left: 1.4rem;
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		color: #fff;
+		text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+	}
+	.lab-title-icon {
+		font-size: 2rem;
+		color: var(--primary);
+	}
+	.lab-title-main {
+		font-size: 1.25rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+	.lab-title-sub {
+		font-size: 0.72rem;
+		opacity: 0.7;
+	}
+
+	.lab-back {
+		position: fixed;
+		top: 1.2rem;
+		right: 1.4rem;
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.45rem 0.9rem;
+		border-radius: 999px;
+		color: #fff;
+		background: color-mix(in oklch, var(--primary) 22%, rgba(0, 0, 0, 0.35));
+		border: 1px solid color-mix(in oklch, var(--primary) 40%, transparent);
+		backdrop-filter: blur(8px);
+		transition: background 0.2s ease;
+	}
+	.lab-back:hover {
+		background: color-mix(in oklch, var(--primary) 45%, rgba(0, 0, 0, 0.4));
+	}
+
+	.lab-ui {
+		position: fixed;
+		left: 50%;
+		bottom: 1.4rem;
+		transform: translateX(-50%);
+		z-index: 50;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.7rem;
+		max-width: 94vw;
+	}
+
+	.lab-chips {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 0.5rem;
+		border-radius: 999px;
+		background: rgba(10, 10, 18, 0.55);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(10px);
+	}
+	.lab-chip {
+		padding: 0.4rem 0.9rem;
+		border-radius: 999px;
+		font-size: 0.8rem;
+		color: #d8d8e6;
+		background: transparent;
+		border: 1px solid transparent;
+		transition: all 0.18s ease;
+		cursor: pointer;
+	}
+	.lab-chip:hover {
+		color: #fff;
+		background: rgba(255, 255, 255, 0.06);
+	}
+	.lab-chip.active {
+		color: #fff;
+		background: var(--primary);
+		box-shadow: 0 0 16px color-mix(in oklch, var(--primary) 60%, transparent);
+	}
+
+	.lab-toggles {
+		display: flex;
+		gap: 0.5rem;
+	}
+	.lab-toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.4rem 0.8rem;
+		border-radius: 999px;
+		font-size: 0.78rem;
+		color: #d8d8e6;
+		background: rgba(10, 10, 18, 0.55);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(10px);
+		cursor: pointer;
+		transition: all 0.18s ease;
+	}
+	.lab-toggle.active {
+		color: #fff;
+		border-color: color-mix(in oklch, var(--primary) 60%, transparent);
+		background: color-mix(in oklch, var(--primary) 30%, rgba(0, 0, 0, 0.4));
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lab-chip,
+		.lab-toggle,
+		.lab-back {
+			transition: none;
+		}
+	}
+</style>

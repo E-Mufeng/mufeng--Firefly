@@ -64,6 +64,12 @@
       "icon": "material-symbols:edit-note-rounded"
     },
     {
+      "name": "实验室",
+      "url": "/lab/",
+      "icon": "material-symbols:view-in-ar-rounded",
+      "pageKey": "lab"
+    },
+    {
       "name": "关于",
       "url": "#",
       "icon": "material-symbols:info",

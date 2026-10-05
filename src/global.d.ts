@@ -79,6 +79,16 @@ declare global {
 		wavesInitialized?: boolean;
 		/** 布局初始化守卫,确保 Swup 切页重跑模块脚本时只执行一次 */
 		__fireflyLayoutInit?: boolean;
+		/** 电影感页面转场遮罩初始化守卫 */
+		__fireflyTransitionMask?: boolean;
+		/** Web Audio 音效初始化守卫 */
+		soundEffectsInitialized?: boolean;
+		/** 音效开关 API（由 SoundEffects.astro 挂载，RightDock 调用） */
+		fireflySound?: {
+			isEnabled: () => boolean;
+			setEnabled: (v: boolean) => void;
+			toggle: () => boolean;
+		};
 		/** 打字机特效监听器守卫,确保只注册一次 */
 		__typewriterTextInit?: boolean;
 		/** 分类栏监听器守卫,确保只注册一次 */

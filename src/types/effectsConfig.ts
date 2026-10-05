@@ -24,3 +24,18 @@ export type SakuraConfig = {
 	};
 	zIndex: number; // 层级，确保樱花在合适的层级显示
 };
+
+export type SoundEffectVoice = {
+	enabled: boolean; // 该事件是否发声
+	freq: number; // 基础频率 (Hz)
+	type: OscillatorType; // 波形
+	duration: number; // 时长 (s)
+};
+
+export type SoundEffectsConfig = {
+	enable: boolean; // 总开关，默认关
+	volume: number; // 主音量 0..1
+	hover: SoundEffectVoice; // 悬停反馈
+	click: SoundEffectVoice; // 点击反馈
+	navigate: SoundEffectVoice; // 页面切换上扫音
+};
