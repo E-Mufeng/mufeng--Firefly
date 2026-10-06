@@ -115,9 +115,4 @@ export type BackgroundWallpaperConfig = {
 				  }; // 是否启用模糊渐变，支持布尔值或分别设置桌面端和移动端，默认 true
 		};
 	};
-	// 首页实时 3D 角色场景（仅全屏/首页生效）
-	hero3D?: {
-		enabled?: boolean; // 是否启用首页 3D 角色背景（默认 false）
-		fallbackImage?: string; // WebGL 不可用时的降级海报图（src 资源路径）
-	};
 };

@@ -10,7 +10,6 @@ import MusicManager from "@components/features/MusicManager.astro";
 import MusicPlayerView from "@components/features/MusicPlayerView.astro";
 import SakuraEffect from "@components/features/SakuraEffect.astro";
 import WavesEffect from "@components/features/WavesEffect.astro";
-import SoundEffects from "@components/features/SoundEffects.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
 
 import {
@@ -636,9 +635,6 @@ const siteLang = lang.replace("_", "-");
 
     <div id="progress-bar"></div>
 
-    {/* 电影感页面切换遮罩：visit:start 覆盖 / page:view 揭开 */}
-    <div id="page-transition-mask" aria-hidden="true"></div>
-
     {/* 卡片样式：根据 localStorage 覆盖默认配置 */}
     <script is:inline define:vars={{
       defaultBorder: siteConfig.card?.border ?? false,
@@ -678,9 +674,6 @@ const siteLang = lang.replace("_", "-");
 
     <!-- Fancybox Manager -->
     <FancyboxManager />
-
-    <!-- Web Audio 音效（默认关，由 RightDock 开关） -->
-    <SoundEffects />
 
     <!-- Tab 代码块交互 -->
     <CodeGroupManager />

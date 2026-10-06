@@ -50,6 +50,3 @@ package/
 .codex*
 .claude
 .mimocode
-
-# 本地截图/调试产物
-.playwright-cli/
